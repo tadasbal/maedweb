@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="login-body">
+    <header>
+        <nav class="login-nav">
+            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+            <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+            <a href = "" class="main-nav">Entertainment</a>
+            <a href = "" class="main-nav">Events</a>
+        </nav>
+	</header>
+    <div class="login-container">
+        <form action="{% url 'maedweb:registration' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend class="login-account-type-legend">Choose account type:</legend>
+                <ul class="register-choose-type">
+                <li>
+                    <input type="radio" id="register-as-user" name="register-account-type" value="User" checked="checked">
+                    <label for="register-as-user" id="register-as-user-label"><span>User</span></label>
+                    <div class="register-type-info-button">?</div>
+                    <div class="register-type-info">If you want to search and register for entertainment, choose this type</div>
+                </li>
+                <li>
+                    <input type="radio" id="register-as-organizer" name="register-account-type" value="Organizer">
+                    <label for="register-as-organizer" id="register-as-organizer-label"><span>Organizer</span></label>
+                    <div class="register-type-info-button">?</div>
+                    <div class="register-type-info">If you want to post your entertainment, choose this type</div>
+                </li>
+                </ul>
+            </fieldset>
+            {% if message %}
+            <div id="register-alert">
+            {{ message }}
+            </div>
+            {% endif %}
+            <fieldset class="login-password-fieldset">
+                <label for="register-username">Username</label>
+                <input id="register-username" type="text" name="register-username">
+                <label for="register-email">Email</label>
+                <input id="register-email" type="email" name="register-email">
+                <label for="register-name">Full name / Company name</label>
+                <input id="register-name" type="text" name="register-name">
+                <label for="register-password">Password</label>
+                <input id="register-password" type="password" name="register-password">
+            </fieldset>
+
+            <button id="register-button" type="submit">Register</button>
+        </form>
+        <span id="already-have-an-account">Already have an account? <a href="/catalog/login">Login</a></span>
+    </div>
+
+
+</body>
+</html>

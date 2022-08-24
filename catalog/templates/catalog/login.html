@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="login-body">
+    <header>
+        <nav class="login-nav">
+            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+            <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+            <a href = "" class="main-nav">Entertainment</a>
+            <a href = "" class="main-nav">Events</a>
+        </nav>
+	</header>
+    <div class="login-container">
+        <form action="{% url 'maedweb:login_request' %}" method="post">
+        {% csrf_token %}
+            <fieldset>
+                <legend class="login-account-type-legend">Choose account type:</legend>
+                <ul class="login-choose-type">
+                <li>
+                    <input type="radio" id="login-as-user" name="login-account-type" value="user" checked="checked">
+                    <label for="login-as-user" id="login-as-user-label"><span>User</span></label>
+                    <div class="login-type-info-button">?</div>
+                    <div class="login-type-info">If you want to search and register for entertainment, choose this type</div>
+                </li>
+                <li>
+                    <input type="radio" id="login-as-organizer" name="login-account-type" value="organizer">
+                    <label for="login-as-organizer" id="login-as-organizer-label"><span>Organizer</span></label>
+                    <div class="login-type-info-button">?</div>
+                    <div class="login-type-info">If you want to post your entertainment, choose this type</div>
+                </li>
+                </ul>
+            </fieldset>
+            {% if message %}
+            <div id="login-alert">
+            {{ message }}
+            </div>
+            {% endif %}
+            <fieldset class="login-password-fieldset">
+                <label for="login-username">Username</label>
+                <input id="login-username" type="text" name="login-username">
+                <label for="login-password">Password</label>
+                <input id="login-password" type="password" name="login-password">
+            </fieldset>
+
+            <button id="login-button" type="submit">Login</button>
+        </form>
+        <a href="" id="forgot-password">Forgot password?</a>
+        <a href="/catalog/register" id="register">Register</a>
+    </div>
+
+
+</body>
+</html>

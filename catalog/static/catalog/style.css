@@ -1,0 +1,624 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, figure, figcaption, input {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+body {
+line-height: 1;
+}
+
+input, select {
+vertical-align:middle;
+}
+
+
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+/* Above is css starter so that every browser would display html the same. */
+/* Below is everything for index page */
+#index-body{
+    background-image: url("Images/sunset-3726030_1920.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: rgb(145, 55, 3);
+}
+
+#login{
+    position: absolute;
+    display: block;
+    width: 4vw;
+    left: 93.5vw;
+    top: 3vh;
+}
+
+#index-header{
+    margin-top: 16vh;
+    margin-bottom: 18.8vh;
+    font-family: 'Italiana';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 5vw;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#index-logo{
+    display: block;
+    margin: 0 auto;
+    width:20%;
+}
+
+.index-nav{
+    background: rgba(255, 255, 255, 0.6);
+    display: block;
+    height: 9.6vh;
+    width: 29.6vw;
+    float: left;
+    margin-left: 2.8vw;
+
+    text-decoration: none;
+    font-family: 'Average';
+    font-style: normal;
+    font-weight: 550;
+    font-size: 2vw;
+    line-height: 9.6vh;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+.index-nav:hover{
+    background: rgba(255, 238, 0, 0.6);
+}
+
+/* Above is everything for index page */
+
+#main-body{
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+}
+
+#main-header-logo{
+    display: block;
+    float: left;
+    width: 4vw;
+    margin-left: 2.5vw;
+    margin-top: 1.5vh;
+}
+
+.main-nav{
+    display: block;
+    float: left;
+    margin-left: 3vw;
+    margin-top: 4.2vh;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.3vw;
+    text-decoration-line: none;
+    color: #000000;
+}
+
+.active{
+    text-decoration-line: underline;
+    font-weight: 550;
+}
+
+#main-login{
+    margin-top: 3vh;
+    margin-left: 62vw;
+}
+
+/* Below is css for search */
+
+#search-form{
+    position: relative;
+    margin-top: 3.5vh;
+    margin-left: 2vw;
+    display: block;
+    float: left;
+    width: 20vw;
+    height: 5vh;
+    background: #FAFAFA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+}
+
+#search-button{
+    position:absolute;
+    top:0;
+    left: 85%;
+    cursor: pointer;
+    display: block;
+    float: right;
+    background-image: url("Figures/search.png");
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    border: none;
+    width: 3vw;
+    height: 3.2vh;
+    margin-top: 0.9vh;
+}
+
+#search-input{
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
+
+#search-input:focus{
+    outline: none;
+}
+
+#search-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(0, 0, 0, 0.4);
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 120%;
+  }
+  
+#search-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+
+/* Above is css for search */
+/* Below is css for filter */
+
+#filter-container{
+    float:right;
+    margin-right: 16vw;
+    width: 36vw;
+    height: 13vh;
+
+}
+
+#filter-logo-text-container{
+    float:left;
+    display: flex;
+    align-items: center;
+    padding-right: 5%;
+    height: 100%;
+}
+
+#filter-logo{
+    float: left;
+    width: 1.6vw;
+}
+
+#filter-text{
+    margin-left: 5%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 550;
+    font-size: 2vh;
+}
+
+.one-checkbox-container{
+    float:left;
+    width: 25%;
+    margin-bottom: 3.1%;
+}
+
+.one-checkbox-container input[type=checkbox]{
+    height:2.5vh;
+    width: 2.5vw;
+    padding: 0 0 0 0px;
+    cursor:pointer;
+}
+
+.one-checkbox-container label{
+    font-family: 'Inter';
+    font-size: 2vh;
+    margin-left: -5%;
+    line-height: 2.5vh;
+    align-items: center;
+    cursor:pointer;
+    grid-template-columns: repeat(5, auto);
+}
+
+
+/* Above is css for filter */
+/* Below is css for gallery */
+
+.gallery-container{
+    display:inline-block;
+    height: 20vh;
+    margin-top: 5vh;
+}
+
+.gallery-category p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 550;
+    font-size: 20px;
+    margin-left: 2.5vw;
+}
+
+.swiper-container:first-of-type{
+    padding-top: 100px;
+}
+
+#main-body > .swiper-container{
+    padding-top: 50px;
+}
+
+#main-body > .swiper-container ~ .swiper-container{
+    padding-top: 0px;
+}
+
+
+.swiper-container {
+    width: 100vw;
+    height: 240px;
+    overflow: hidden;
+  }
+
+.swiper-slide {
+    width:fit-content;
+    height: fit-content;
+    margin-right: 6px;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .swiper-slide a img:hover, .swiper-slide a img:hover + p{
+    width:220px;
+}
+
+.swiper-slide a img:hover{
+    height: 165px;
+}
+
+.swiper-slide img {
+    display: block;
+    width:180px;
+    height: 135px;
+    object-fit: cover;
+  }
+
+
+.swiper-wrapper a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.swiper-wrapper a p{
+    text-align: center;
+    margin-top: 6px;
+    width:180px;
+}
+
+.button-for-images-right{
+    display: block;
+    position: absolute;
+    height: 80px;
+    width: 30px;
+    left:97vw;
+    margin-top: 65px;
+    background: rgba(217, 217, 217, 0.6);
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.button-for-images-left{
+    display: block;
+    position:absolute;
+    height: 80px;
+    width: 30px;
+    margin-top: 65px;
+    background: rgba(217, 217, 217, 0.6);
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.button-for-images-left:hover, .button-for-images-right:hover{
+    background: rgba(255, 238, 0, 0.6);
+    height: 135px;
+    margin-top:35px;
+}
+
+/* Above is css for gallery */
+/* Below is css for login and register page */
+
+.login-nav{
+    display: inline-block;
+}
+
+#login-body{
+    background-color: #F6F6F6;
+}
+
+.login-container{
+    background: #FFC444;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 435px;
+    height: 620px;
+    margin: 0 auto;
+    margin-top: 3vh;
+}
+
+.login-account-type-legend{
+    font-family: 'Average';
+    font-style: normal;
+    font-size: 32px;
+    text-align: center;
+    padding-top: 1.5%;
+}
+
+.login-choose-type, .register-choose-type{
+    list-style-type: none;
+}
+
+.login-choose-type li{
+    float:left;
+    width:175px;
+    height:175px;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 46px;
+}
+
+.register-choose-type li{
+    float:left;
+    width:133px;
+    height:133px;
+    margin-left: 58px;
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+.login-choose-type label{
+    background-color: #FFFFFF;
+    background-position: center 15px;
+    background-repeat: no-repeat;
+
+    padding:5px;
+    cursor:pointer;
+    z-index:2;
+    position:absolute;
+    width: 175px;
+    height: 175px;
+
+    text-align: center;
+}
+
+.register-choose-type label{
+    background-color: #FFFFFF;
+    background-position: center 21.5px;
+    background-repeat: no-repeat;
+    background-size: auto 70px;
+
+    cursor:pointer;
+    z-index:2;
+    position:absolute;
+    width: 133px;
+    height: 133px;
+
+    text-align: center;
+}
+
+#login-as-user-label, #register-as-user-label{
+    background-image: url("Figures/User-type.png");
+}
+
+#login-as-organizer-label, #register-as-organizer-label{
+    background-image: url("Figures/Organizer-type.png");
+}
+
+.login-choose-type label span{
+    font-family: 'Average';
+    font-size: 24px;
+    position: relative;
+    top: 138px;
+}
+
+.register-choose-type label span{
+    font-family: 'Average';
+    font-size: 16px;
+    position: relative;
+    top: 105.75px;
+}
+
+.login-choose-type input, .register-choose-type input{
+    display: block;
+    position:absolute;
+    z-index:3;
+    visibility: hidden;
+}
+
+.login-choose-type label:hover, .login-choose-type input[type="radio"]:checked + label{
+    border:2px solid rgb(17, 0, 255); 
+}
+
+.register-choose-type label:hover, .register-choose-type input[type="radio"]:checked + label{
+    border:2px solid rgb(17, 0, 255); 
+}
+
+#login-alert{
+    color:red; 
+    font-size: 14px; 
+    margin-left: 25px;
+    margin-bottom: 10px;
+    margin-top: -24px;
+}
+
+#register-alert{
+    color:red; 
+    font-size: 14px; 
+    margin-left: 42px;
+    margin-bottom: 5px;
+    margin-top: -19px;
+}
+
+.login-type-info-button, .register-type-info-button{
+    position: relative;
+    z-index: 4;
+    background: #D9D9D9;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+
+    font-family: 'Arial';
+    font-size: 16px;
+    line-height: 23px;
+    text-align: center;
+    color: #EC2A00;
+}
+
+.login-type-info-button{
+    left: 160px;
+    top:160px;
+}
+
+.register-type-info-button{
+    left:108px;
+    top:108px;
+}
+
+.login-type-info, .register-type-info{
+    position: relative;
+    z-index: 5;
+    height: 30px;
+    background-color: #EC2A00;
+    display: none;
+
+    font-size: 13px;
+    text-align: center;
+}
+
+.login-type-info{
+    top:165px;
+    width: 185px;
+}
+
+.register-type-info{
+    top:115px;
+    width: 183px;
+    right: 20px;
+}
+
+.login-type-info-button:hover + .login-type-info{
+    display: block;
+}
+
+.register-type-info-button:hover + .register-type-info{
+    display: block;
+}
+
+.login-password-fieldset label, .login-password-fieldset input{
+    display: block;
+    font-family: 'Average';
+    font-size: 16px;
+}
+
+.login-password-fieldset label{
+    margin-left: 42px;
+    margin-bottom: 7px;
+}
+
+.login-password-fieldset input{
+    font-size: 20px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 25px;
+    width: 369px;
+    height: 38px;
+    margin-bottom: 12px;
+    padding-left: 17px;
+}
+
+#login-username{
+    margin-bottom: 18px !important;
+}
+
+#login-password{
+    margin-bottom: 24px !important;
+}
+
+#register-password{
+    margin-bottom: 25px !important;
+}
+
+#login-button, #register-button{
+    display: block;
+    background: #666666;
+    border-radius: 25px;
+    width: 223px;
+    height: 38px;
+    border: none;
+    margin: 0 auto;
+    margin-bottom: 18px;
+    cursor: pointer;
+
+    font-family: 'Average';
+    font-size: 24px;
+    color: #FFFFFF;
+}
+
+#login-button:hover, #register-button:hover{
+    background-color: rgb(17, 0, 255);
+}
+
+#forgot-password{
+    display: block;
+    text-decoration: none;
+    font-family: 'Average';
+    font-size: 16px;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 31px;
+}
+
+#register{
+    display: block;
+    text-align: center;
+    font-family: 'Average';
+    font-size: 32px;
+    color: #000000;
+    text-decoration: none;
+}
+
+#forgot-password:hover, #register:hover{
+    color: rgb(17, 0, 255);
+}
+
+#already-have-an-account{
+    display: block;
+    text-align: center;
+}
+
+#already-have-an-account a{
+    text-decoration: none;
+    color: rgb(17, 0, 255);
+}
+
+#already-have-an-account a:hover{
+    color: rgba(17, 0, 255, 0.6);
+}

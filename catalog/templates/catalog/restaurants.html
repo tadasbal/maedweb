@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />    
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+</head>
+<body id="main-body">
+    <header>
+        <nav>
+            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+            <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
+            <a href = "" class="main-nav">Entertainment</a>
+            <a href = "" class="main-nav">Events</a>
+            <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+        </nav>
+	</header>
+
+    <!-- Search -->
+    <form action="" method="post">
+        <div id="search-form">
+            <input id="search-input" type="text" placeholder="Search:" name="search">
+            <button id="search-button" type="submit"></button>
+        </div>
+
+    <!-- Filter -->
+    </form>
+    <div id="filter-container">
+        <figure id="filter-logo-text-container">
+            <img id="filter-logo" src="{% static 'catalog/Figures/Filter.png' %}">
+            <figcaption id="filter-text">Filter</figcaption>
+        </figure>
+        <div id="filter-checkbox-container">
+            <div class="three-checkboxes-container">
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="first_checkbox" id="first_checkbox">
+                    <label for="first_checkbox">Italian</label>
+                </div>
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="second_checkbox" id="second_checkbox">
+                    <label for="second_checkbox">Most Popular</label>
+                </div>
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="third_checkbox" id="third_checkbox">
+                    <label for="third_checkbox">Most Popular</label>
+                </div>
+            </div>
+            <div class="three-checkboxes-container">
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="fourth_checkbox" id="fourth_checkbox">
+                    <label for="fourth_checkbox">Italian</label>
+                </div>
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="fifth_checkbox" id="fifth_checkbox">
+                    <label for="fifth_checkbox">Mexican</label>
+                </div>
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="sixth_checkbox" id="sixth_checkbox">
+                    <label for="sixth_checkbox">Most Popular</label>
+                </div>
+            </div>
+            <div class="three-checkboxes-container">
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="seventh_checkbox" id="seventh_checkbox">
+                    <label for="seventh_checkbox">Italian</label>
+                </div>
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="eigth_checkbox" id="eigth_checkbox">
+                    <label for="eigth_checkbox">Mexican</label>
+                </div>
+                <div class="one-checkbox-container">
+                    <input type="checkbox" class="checkbox" name="ninth_checkbox" id="ninth_checkbox">
+                    <label for="ninth_checkbox">Most Popular</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Swiper1 -->
+
+<div #swiperRef="" class="swiper-container mySwiper">
+    <button class="button-for-images-left">
+        <img src="{% static 'catalog/Figures/arrow-left.png' %}" class="arrow-left">
+    </button>
+    <button class="button-for-images-right">
+        <img src="{% static 'catalog/Figures/arrow-right.png' %}" class="arrow-right">
+    </button>
+    <div class="gallery-category">
+        <p>Most Popular:</p>
+    </div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Swiper2 -->
+
+<div #swiperRef="" class="swiper-container mySwiper">
+    <button class="button-for-images-left">
+        <img src="{% static 'catalog/Figures/arrow-left.png' %}" class="arrow-left">
+    </button>
+    <button class="button-for-images-right">
+        <img src="{% static 'catalog/Figures/arrow-right.png' %}" class="arrow-right">
+    </button>
+    <div class="gallery-category">
+        <p>Most Popular:</p>
+    </div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+    </div>
+    
+</div>
+<!-- Swiper3 -->
+
+<div #swiperRef="" class="swiper-container mySwiper">
+    <button class="button-for-images-left">
+        <img src="{% static 'catalog/Figures/arrow-left.png' %}" class="arrow-left">
+    </button>
+    <button class="button-for-images-right">
+        <img src="{% static 'catalog/Figures/arrow-right.png' %}" class="arrow-right">
+    </button>
+    <div class="gallery-category">
+        <p>Most Popular:</p>
+    </div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/barbecue-1239434_1920.jpg' %}">
+                <p>EatMeat</p>
+            </a>
+        </div>
+        
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/shish-kebab-417994_1920.jpg' %}">
+                <p>My most loved burgers by Juancho</p>
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="">
+                <img src="{% static 'catalog/Images/Restaurants/hamburger-494706_1920.jpg' %}">
+                <p>Best Burgers In Town</p>
+            </a>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper('.mySwiper', {
+        slidesPerView: "auto",
+        loop:true,
+        spaceBetween: 0,
+        // If window size is bigger than 640px, then you will slide through 5 slides, if not, than through 1 slide
+        breakpoints:{
+            640:{
+                slidesPerGroup:5,
+                rewind:true,
+                loop:false,
+            }
+        },  
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+        },
+        navigation: {
+            nextEl: '.button-for-images-right',
+            prevEl: '.button-for-images-left',
+        },
+    });
+    </script>
+</body>
+</html>
