@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="index-body">
+    <header>
+        <h1 id="index-header">What are you looking for?</h1>
+	</header>
+    <nav>
+        <a href = "/catalog/restaurants" class="index-nav">Restaurants</a>
+        <a href = "" class="index-nav">Entertainment</a>
+        <a href = "" class="index-nav">Events</a>
+        {% if user.is_authenticated %}
+        <div>{{ user.first_name }}({{ user.username }})</div>
+        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+        {% else %}
+        <a href = "/catalog/login"><img id="login" src="{% static 'catalog/Figures/login.png' %}"></a>
+        {% endif %}
+  </nav>
+  <img src="{% static 'catalog/Logos/logo_transparent_golden.png' %}" id="index-logo">
+</body>
+</html>
