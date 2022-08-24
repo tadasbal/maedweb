@@ -1,0 +1,11 @@
+  applications:
+  - name: maed-d43
+    routes:
+      - route: maed-d43.eu-de.mybluemix.net
+    memory: 128M
+    buildpack: python_buildpack
+  - name: maed-d43-nginx
+    routes:
+      - route: maed-d43.eu-de.mybluemix.net/static
+    memory: 128M
+    buildpack: staticfile_buildpack
