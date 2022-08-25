@@ -74,7 +74,6 @@ border-spacing: 0;
 
     text-decoration: none;
     font-family: 'Average';
-    font-style: normal;
     font-weight: 550;
     font-size: 2vw;
     line-height: 9.6vh;
@@ -85,6 +84,75 @@ border-spacing: 0;
 
 .index-nav:hover{
     background: rgba(255, 238, 0, 0.6);
+}
+
+#index-profile-container{
+    display: flex;
+    position: absolute;
+    top: 3vh;
+    right: 3vw;
+}
+
+#index-username{
+    margin-right: 10px;
+    width: fit-content;
+    font-family: 'Inter';
+    text-align: right;
+    font-weight: 550;
+    font-size: 20px;
+    line-height: 78px;
+    color: #FFFFFF;
+}
+
+#index-profile-button{
+    cursor: pointer;
+    display: block;
+    float: right;
+    align-items: right;
+    background-image: url("Figures/profile-white.png");
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    border: none;
+    width: 78px;
+    height: 78px;
+    margin-right: 21px;
+    margin-left: 21px;
+}
+
+#index-profile-button:hover + #index-profile-selection-list, #index-profile-selection-list:hover{
+    display: block;
+}
+
+#index-profile-button:focus + #index-profile-selection-list{
+    display: block;
+}
+
+#index-profile-selection-list{
+    display: none;
+    clear: both;
+    width: 120px;
+    height: 120px;
+}
+
+#index-profile-selection-list a{
+    display: block;
+    height: 40px;
+    background-color: rgba(255, 199, 0, 0.8);
+    border-bottom: #000000 solid 1px;
+
+    font-family: 'Inter';
+    font-weight: 550;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+    color: #000000;
+}
+
+#index-profile-selection-list a:hover{
+    color: #FFFFFF;
 }
 
 /* Above is everything for index page */
@@ -100,6 +168,10 @@ border-spacing: 0;
     width: 4vw;
     margin-left: 2.5vw;
     margin-top: 1.5vh;
+}
+
+#main-nav-container{
+    display: inline-block;
 }
 
 .main-nav{
@@ -126,12 +198,80 @@ border-spacing: 0;
     margin-left: 62vw;
 }
 
+#main-profile-container{
+    display: flex;
+    position: absolute;
+    top: 2vh;
+    right: 1.5vw;
+}
+
+#main-username{
+    margin-right: 10px;
+    width: fit-content;
+    font-family: 'Inter';
+    text-align: right;
+    font-weight: 550;
+    font-size: 20px;
+    line-height: 51px;
+}
+
+#main-profile-button{
+    cursor: pointer;
+    display: block;
+    float: right;
+    align-items: right;
+    background-image: url("Figures/profile-black.png");
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    border: none;
+    width: 51px;
+    height: 51px;
+    margin-right: 24.5px;
+    margin-left: 24.5px;
+}
+
+#main-profile-button:hover + #main-profile-selection-list, #main-profile-selection-list:hover{
+    display: block;
+}
+
+#main-profile-button:focus + #main-profile-selection-list{
+    display: block;
+}
+
+#main-profile-selection-list{
+    display: none;
+    clear: both;
+    width: 100px;
+    height: 120px;
+}
+
+#main-profile-selection-list a{
+    display: block;
+    height: 40px;
+    background-color: rgba(255, 199, 0, 0.8);
+    border-bottom: #000000 solid 1px;
+
+    font-family: 'Inter';
+    font-weight: 550;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+    color: #000000;
+}
+
+#main-profile-selection-list a:hover{
+    color: #FFFFFF;
+}
+
 /* Below is css for search */
 
 #search-form{
     position: relative;
     margin-top: 3.5vh;
-    margin-left: 2vw;
+    margin-left: 8vw;
     display: block;
     float: left;
     width: 20vw;
@@ -429,7 +569,7 @@ border-spacing: 0;
 }
 
 #login-as-organizer-label, #register-as-organizer-label{
-    background-image: url("Figures/Organizer-type.png");
+    background-image: url("Figures/organizer-type.png");
 }
 
 .login-choose-type label span{

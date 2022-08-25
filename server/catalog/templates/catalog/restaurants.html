@@ -13,12 +13,26 @@
 </head>
 <body id="main-body">
     <header>
-        <nav>
+        <nav id="main-nav-container">
             <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
             <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
             <a href = "" class="main-nav">Entertainment</a>
             <a href = "" class="main-nav">Events</a>
+            {% if user.is_authenticated %}
+            <div id="main-profile-container">
+                <div id="main-username">{{ user.username }}</div>
+                <div id="main-profile-button-container">
+                    <button id="main-profile-button"></button>
+                    <div id="main-profile-selection-list">
+                        <a href="">Profile</a>
+                        <a href="">Help</a>
+                        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
             <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+            {% endif %}
         </nav>
 	</header>
 

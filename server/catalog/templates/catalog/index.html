@@ -16,8 +16,17 @@
         <a href = "" class="index-nav">Entertainment</a>
         <a href = "" class="index-nav">Events</a>
         {% if user.is_authenticated %}
-        <div>{{ user.first_name }}({{ user.username }})</div>
-        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+        <div id="index-profile-container">
+            <div id="index-username">{{ user.username }}</div>
+            <div id="index-profile-button-container">
+                <button id="index-profile-button"></button>
+                <div id="index-profile-selection-list">
+                    <a href="">Profile</a>
+                    <a href="">Help</a>
+                    <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                </div>
+            </div>
+        </div>
         {% else %}
         <a href = "/catalog/login"><img id="login" src="{% static 'catalog/Figures/login.png' %}"></a>
         {% endif %}
