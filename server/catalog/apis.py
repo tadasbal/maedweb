@@ -17,7 +17,6 @@ def retrieve_img(document_id, img_name):
         api_key="vzhNu-YSn2YZf4JQ0rXcqAbnE1iYIItmnfglmgYYvZCP",
         connect=True,
     )
-    print("Databases: {0}".format(client.all_dbs()))
     my_database = client['maed-restaurants']
     my_document = my_database[document_id]
     img_data=my_document.get_attachment(attachment=img_name)
@@ -39,8 +38,6 @@ def retrieve_all_documents():
     for document in my_database:
         my_documents.append(document)
     return my_documents
-
-retrieve_all_documents()
 
 def create_document(url, payload):
     headers = {'Content-type': 'application/json', 'Accept': 'application/json'}

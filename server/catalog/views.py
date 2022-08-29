@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User, Group
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from .apis import retrieve_img, retrieve_all_documents
 import requests
@@ -92,5 +92,4 @@ def restaurants(request):
         small_document['main_image'] = images[0]
         small_documents.append(small_document)
     context['small_documents'] = small_documents
-    print(small_documents)
     return render(request, 'catalog/restaurants.html', context)
