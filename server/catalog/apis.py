@@ -1,15 +1,15 @@
 import base64
-import cv2
+# import cv2
 import requests
 from cloudant.client import Cloudant
 
-def base64_encode(img_dir):
-    img = cv2.imread(img_dir)
-    if img is None:
-        print("Could not read the image.")
-    jpg_img = cv2.imencode('.jpg', img)
-    b64_string = base64.b64encode(jpg_img[1]).decode('utf-8')
-    return b64_string
+# def base64_encode(img_dir):
+#     img = cv2.imread(img_dir)
+#     if img is None:
+#         print("Could not read the image.")
+#     jpg_img = cv2.imencode('.jpg', img)
+#     b64_string = base64.b64encode(jpg_img[1]).decode('utf-8')
+#     return b64_string
 
 def retrieve_img(document_id, img_name):
     client = Cloudant.iam(
