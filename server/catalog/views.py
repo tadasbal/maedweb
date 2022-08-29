@@ -1,12 +1,26 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User, Group
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from .apis import retrieve_img, retrieve_all_documents
 import requests
 from requests.auth import HTTPBasicAuth
 import logging
 
 logger = logging.getLogger(__name__)
+
 # Create your views here.
+# def show_image(request, document_id, image_name):
+#     image = retrieve_img(document_id, image_name)
+
+#     return HttpResponse(image, content_type="image/jpg")
+
+def show_image(request, document_id, image_name):
+    image = retrieve_img(document_id, image_name)
+    return HttpResponse(image, content_type="image/jpg")
+
+
 def index(request):
     return render(request, 'catalog/index.html')
 
@@ -62,4 +76,21 @@ def registration_request(request):
             return render(request, 'catalog/register.html', context)
 
 def restaurants(request):
-    return render(request, 'catalog/restaurants.html')
+    context = {}
+    small_documents = []
+    my_documents = retrieve_all_documents()
+    for document in my_documents:
+        small_document = {}
+        small_document['id'] = document['_id']
+        small_document['name'] = document['name']
+        small_document['categories'] = document['categories']
+
+        for img_name in document['_attachments']:
+            images = []
+            images.append(img_name)
+            small_document['images'] = images
+        small_document['main_image'] = images[0]
+        small_documents.append(small_document)
+    context['small_documents'] = small_documents
+    print(small_documents)
+    return render(request, 'catalog/restaurants.html', context)

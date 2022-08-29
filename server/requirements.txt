@@ -1,3 +1,5 @@
 Django
 requests
 gunicorn
+opencv-python
+cloudant
