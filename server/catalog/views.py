@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User, Group
@@ -77,19 +78,34 @@ def registration_request(request):
 
 def restaurants(request):
     context = {}
-    small_documents = []
+    converted_documents = []
     my_documents = retrieve_all_documents()
     for document in my_documents:
-        small_document = {}
-        small_document['id'] = document['_id']
-        small_document['name'] = document['name']
-        small_document['categories'] = document['categories']
+        converted_document = {}
+        converted_document['id'] = document['_id']
+        converted_document['name'] = document['name']
+        converted_document['categories'] = document['categories']
 
         for img_name in document['_attachments']:
             images = []
             images.append(img_name)
-            small_document['images'] = images
-        small_document['main_image'] = images[0]
-        small_documents.append(small_document)
-    context['small_documents'] = small_documents
+            converted_document['images'] = images
+        converted_document['main_image'] = images[0]
+        converted_documents.append(converted_document)
+    context['converted_documents'] = converted_documents
     return render(request, 'catalog/restaurants.html', context)
+
+def about_restaurant(request, document_id):
+    context = {}
+    documents = retrieve_all_documents()
+    for document in documents:
+        if document['_id'] == document_id:
+            req_document = document
+            break
+    for img_name in req_document['_attachments']:
+        images = []
+        images.append(img_name)
+    context['document'] = req_document
+    context['main_image'] = images[0]
+    context['document_id'] = document_id
+    return render(request, 'catalog/about_restaurant.html', context)

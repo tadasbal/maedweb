@@ -364,10 +364,10 @@
         <p>Most Popular:</p>
     </div>
     <div class="swiper-wrapper">
-        {% for document in small_documents %}
+        {% for document in converted_documents %}
         {% if "Most Popular" in document.categories %}
         <div class="swiper-slide">
-            <a href="">
+            <a href="{% url 'maedweb:about_restaurant' document_id=document.id %}">
                 <img src="{% url 'maedweb:showimage' document_id=document.id image_name=document.main_image %}">
                 <p>{{ document.name }}</p>
             </a>
@@ -392,10 +392,10 @@
         <p>Fast Food:</p>
     </div>
     <div class="swiper-wrapper">
-        {% for document in small_documents %}
+        {% for document in converted_documents %}
         {% if "Fast Food" in document.categories %}
         <div class="swiper-slide">
-            <a href="">
+            <a href="{% url 'maedweb:about_restaurant' document_id=document.id %}">
                 <img src="{% url 'maedweb:showimage' document_id=document.id image_name=document.main_image %}">
                 <p>{{ document.name }}</p>
             </a>
@@ -420,10 +420,10 @@
         <p>Italian:</p>
     </div>
     <div class="swiper-wrapper">
-        {% for document in small_documents %}
+        {% for document in converted_documents %}
         {% if "Italian" in document.categories %}
         <div class="swiper-slide">
-            <a href="">
+            <a href="{% url 'maedweb:about_restaurant' document_id=document.id %}">
                 <img src="{% url 'maedweb:showimage' document_id=document.id image_name=document.main_image %}">
                 <p>{{ document.name }}</p>
             </a>

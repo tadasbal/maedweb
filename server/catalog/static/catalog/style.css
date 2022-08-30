@@ -15,6 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td, figure, figcaption, input {
 
 body {
 line-height: 1;
+font-family: 'Inter', 'Arial';
 }
 
 input, select {
@@ -761,4 +762,185 @@ border-spacing: 0;
 
 #already-have-an-account a:hover{
     color: rgba(17, 0, 255, 0.6);
+}
+
+/* Above is css for login/register */
+/* Below is css for about_restaurant */
+
+#back-to-restaurants{
+    display: flex;
+    align-items: center;
+    height: 19px;
+    font-size: 10px;
+    color: #666666;
+    text-decoration: none;
+    margin-left: 5vw;
+}
+
+#back-to-restaurants > img{
+    height: 19px;
+    margin-right: 5px;
+}
+
+#back-to-restaurants > span{
+    margin-top: 2px;
+}
+
+#about-page-container{
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    height: 640.9px;
+    /* height: 85vh; */
+    width: 90vw;
+    margin: 0 auto;
+    align-content: space-between;
+
+    font-size: 14px;
+}
+
+#about-page-container h1{
+    font-size: 16px;
+    text-align: center;
+    margin-top: 11px;
+}
+
+#restaurant-image-wrapper, #reviews-container, #contacts-container, #categories-container, #details-container{
+    background: #FAFAFA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#restaurant-image-wrapper{
+    width: 30.4%;
+    height: 316px;
+}
+
+#restaurant-image-wrapper img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#restaurant-image-wrapper > div{
+    position: relative;
+    bottom: 50px;
+    width: 100%;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.6);
+
+    text-align: center;
+    line-height: 50px;
+    font-weight: 550;
+    font-size: 16px;
+}
+
+#reviews-container{
+    /* min-width: 256px; */
+    width: 20.9%;
+    height: 316px;
+}
+
+.reviews{
+    display: block;
+    width: 94%;
+    margin: 15px auto;
+}
+
+.reviews > span{
+    margin-right: 5%;
+    display: block;
+    width: 70px;
+    float: left;
+    line-height: 25.32px;
+    font-weight: 550;
+}
+
+#overall > span{
+    line-height: 29.33px !important;
+}
+
+#overall > img{
+    width: 29.33px !important;
+}
+
+.reviews > img{
+    width: 25.32px;
+}
+
+#contacts-container{
+    /* min-width: 572px; */
+    width: 46.7%;
+    height: 316px;
+}
+
+.onecontact-wrapper{
+    margin-bottom: 10px;
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    width: 45%;
+    float: left;
+}
+
+.onecontact-wrapper > span, .onecontact-wrapper > a{
+    margin-left: 5px;
+}
+
+.maps-photo{
+    display: block;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+#reservation-menu-categories-container{
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+    width: 30.4%;
+}
+
+#reservation-menu-categories-container > a{
+    display: block;
+    width: 49.2%;
+    height: 42px;
+    background: #FFC700;
+    border-radius: 25px;
+
+    font-size: 16px;
+    line-height: 42px;
+    text-align: center;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#categories-container{
+    width: 100%;
+    height: 260px;
+}
+
+#categories-container > div{
+    width: 45%;
+    float: left;
+    height: 25px;
+    margin: 4px 2.5%;
+    background: #D9D9D9;
+    border-radius: 25px;
+
+    text-align: center;
+    line-height: 25px;
+}
+
+#details-container{
+    /* min-width: 841px; */
+    width: 68.5%;
+    height: 309px;
+}
+
+#details-container h2, p{
+    font-size: 14px;
+    margin: 0 11px;
+    line-height: 16px;
+    text-align: justify;
 }

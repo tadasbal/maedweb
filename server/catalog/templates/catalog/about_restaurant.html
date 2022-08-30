@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="main-body">
+    <header>
+        <nav id="main-nav-container">
+            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+            <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
+            <a href = "" class="main-nav">Entertainment</a>
+            <a href = "" class="main-nav">Events</a>
+            {% if user.is_authenticated %}
+            <div id="main-profile-container">
+                <div id="main-username">{{ user.username }}</div>
+                <div id="main-profile-button-container">
+                    <button id="main-profile-button"></button>
+                    <div id="main-profile-selection-list">
+                        <a href="">Profile</a>
+                        <a href="">Help</a>
+                        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+            {% endif %}
+        </nav>
+	</header>
+    </br>
+    <a href="{% url 'maedweb:restaurants' %}" id="back-to-restaurants">
+        <img src="{% static 'catalog/Figures/bi_arrow-left.png' %}">
+        <span>Back to choosing restaurants</span>
+    </a>
+
+    <div id="about-page-container">
+
+        <div id="restaurant-image-wrapper">
+            <img src="{% url 'maedweb:showimage' document_id=document_id image_name=main_image %}">
+            <div>
+                {{document.name}}
+            </div>
+        </div>
+
+        <div id="reviews-container">
+            <h1>Reviews</h1>
+            </br></br>
+            <div class="reviews" id="overall">
+                <span>Overall</span>
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+            </div>
+            </br>
+
+            <div class="reviews">
+                <span>Food</span>
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+            </div>
+
+            <div class="reviews">
+                <span>Price</span>
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+            </div>
+
+            <div class="reviews">
+                <span>Service</span>
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+            </div>
+
+            <div class="reviews">
+                <span>Place</span>
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+            </div>
+        </div>
+
+        <div id="contacts-container">
+            <h1>Contacts</h1>
+            </br></br>
+            
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/building.png' %}">
+                <span>{{ document.contacts.address }}</span>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/phone.png' %}">
+                <span>{{ document.contacts.phone }}</span>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/web.png' %}">
+                <a href="{{ document.contacts.website }}">Website</a>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/arrow-distance.png' %}">
+                <span>Unknown</span>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/email.png' %}">
+                <a href="{{ document.contacts.email }}">{{ document.contacts.email }}</a>
+            </div>
+
+            <img class="maps-photo" src="{% static 'catalog/Images/maps.jpg' %}">
+
+        </div>
+
+        <div id="reservation-menu-categories-container">
+            <a href="">Make a reservation</a>
+            <a href="">Menu</a>
+            <div id="categories-container">
+                <h1>Categories</h1>
+                </br>
+                {% for category in document.categories %}
+                <div>{{category}}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="details-container">
+            <h1>Details</h1>
+            </br>
+            </br>
+            <h2>About</h2>
+            </br>
+            <p>{{document.details.about}}</p>
+            </br>
+            <h2>Features</h2>
+            </br>
+            <p>{{document.details.features}}</p>
+        </div>
+    </div>
+</body>
+</html>
