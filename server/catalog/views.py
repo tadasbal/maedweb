@@ -109,3 +109,28 @@ def about_restaurant(request, document_id):
     context['main_image'] = images[0]
     context['document_id'] = document_id
     return render(request, 'catalog/about_restaurant.html', context)
+
+def filter_request(request):
+    if request.method == 'POST':
+        selected_categories = request.POST.getlist('filter_checkbox')
+        request.session['selected-categories'] = selected_categories
+        return redirect('maedweb:restaurants_filtered')
+
+def restaurants_filtered(request):
+    context = {}
+    req_documents = []
+    selected_categories = request.session['selected-categories']
+    documents = retrieve_all_documents()
+    for document in documents:
+        for category in selected_categories:
+            if category in document['categories']:
+                req_documents.append(document)
+                break
+    for document in req_documents:
+        document['id'] = document.pop('_id')
+        document['attachments'] = document.pop('_attachments')
+        images = list(document['attachments'].keys())
+        document['main_image'] = images[0]
+    context['req_documents'] = req_documents
+    return render(request, 'catalog/restaurants_filtered.html', context) 
+

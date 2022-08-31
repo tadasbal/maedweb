@@ -36,8 +36,11 @@
         </nav>
 	</header>
 
+    <hr>
+
     <!-- Search -->
     <form action="" method="post">
+    {% csrf_token %}
         <div id="search-form">
             <input id="search-input" type="text" placeholder="Search:" name="search">
             <button id="search-button" type="submit"></button>
@@ -45,56 +48,46 @@
 
     <!-- Filter -->
     </form>
-    <div id="filter-container">
-        <figure id="filter-logo-text-container">
-            <img id="filter-logo" src="{% static 'catalog/Figures/Filter.png' %}">
-            <figcaption id="filter-text">Filter</figcaption>
-        </figure>
-        <div id="filter-checkbox-container">
-            <div class="three-checkboxes-container">
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="first_checkbox" id="first_checkbox">
-                    <label for="first_checkbox">Italian</label>
-                </div>
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="second_checkbox" id="second_checkbox">
-                    <label for="second_checkbox">Most Popular</label>
-                </div>
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="third_checkbox" id="third_checkbox">
-                    <label for="third_checkbox">Most Popular</label>
-                </div>
-            </div>
-            <div class="three-checkboxes-container">
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="fourth_checkbox" id="fourth_checkbox">
-                    <label for="fourth_checkbox">Italian</label>
-                </div>
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="fifth_checkbox" id="fifth_checkbox">
-                    <label for="fifth_checkbox">Mexican</label>
-                </div>
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="sixth_checkbox" id="sixth_checkbox">
-                    <label for="sixth_checkbox">Most Popular</label>
-                </div>
-            </div>
-            <div class="three-checkboxes-container">
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="seventh_checkbox" id="seventh_checkbox">
-                    <label for="seventh_checkbox">Italian</label>
-                </div>
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="eigth_checkbox" id="eigth_checkbox">
-                    <label for="eigth_checkbox">Mexican</label>
-                </div>
-                <div class="one-checkbox-container">
-                    <input type="checkbox" class="checkbox" name="ninth_checkbox" id="ninth_checkbox">
-                    <label for="ninth_checkbox">Most Popular</label>
-                </div>
-            </div>
+    <form action="{% url 'maedweb:filter_request' %}" method="post" id="filter-container">
+    {% csrf_token %}
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="first_checkbox" value="Most Popular">
+            <label for="first_checkbox">Most Popular</label>
         </div>
-    </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="second_checkbox" value="Fast Food">
+            <label for="second_checkbox">Fast Food</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="third_checkbox" value="Italian">
+            <label for="third_checkbox">Italian</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="fourth_checkbox" value="Grill">
+            <label for="fourth_checkbox">Grill</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="fifth_checkbox" value="Pasta">
+            <label for="fifth_checkbox">Pasta</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="sixth_checkbox" value="Breakfast">
+            <label for="sixth_checkbox">Breakfast</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="seventh_checkbox" value="New">
+            <label for="seventh_checkbox">New</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="eigth_checkbox" value="Lithuanian">
+            <label for="eigth_checkbox">Lithuanian</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="ninth_checkbox" value="Meat">
+            <label for="ninth_checkbox">Meat</label>
+        </div>
+        <button id="filter-button" type="submit">Apply Filter</button>
+    </form>
 
 <!-- Swiper1 -->
 

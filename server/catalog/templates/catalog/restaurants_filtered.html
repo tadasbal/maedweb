@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />   
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="main-body">
+    <header>
+        <nav id="main-nav-container">
+            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+            <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
+            <a href = "" class="main-nav">Entertainment</a>
+            <a href = "" class="main-nav">Events</a>
+            {% if user.is_authenticated %}
+            <div id="main-profile-container">
+                <div id="main-username">{{ user.username }}</div>
+                <div id="main-profile-button-container">
+                    <button id="main-profile-button"></button>
+                    <div id="main-profile-selection-list">
+                        <a href="">Profile</a>
+                        <a href="">Help</a>
+                        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+            {% endif %}
+        </nav>
+	</header>
+
+    <hr>
+
+    <!-- Search -->
+    <form action="" method="post">
+    {% csrf_token %}
+        <div id="search-form">
+            <input id="search-input" type="text" placeholder="Search:" name="search">
+            <button id="search-button" type="submit"></button>
+        </div>
+
+    <!-- Filter -->
+    </form>
+    <form action="{% url 'maedweb:filter_request' %}" method="post" id="filter-container">
+    {% csrf_token %}
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="first_checkbox" value="Most Popular">
+            <label for="first_checkbox">Most Popular</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="second_checkbox" value="Fast Food">
+            <label for="second_checkbox">Fast Food</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="third_checkbox" value="Italian">
+            <label for="third_checkbox">Italian</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="fourth_checkbox" value="Grill">
+            <label for="fourth_checkbox">Grill</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="fifth_checkbox" value="Pasta">
+            <label for="fifth_checkbox">Pasta</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="sixth_checkbox" value="Breakfast">
+            <label for="sixth_checkbox">Breakfast</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="seventh_checkbox" value="New">
+            <label for="seventh_checkbox">New</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="eigth_checkbox" value="Lithuanian">
+            <label for="eigth_checkbox">Lithuanian</label>
+        </div>
+        <div class="one-checkbox-container">
+            <input type="checkbox" class="checkbox" name="filter_checkbox" id="ninth_checkbox" value="Meat">
+            <label for="ninth_checkbox">Meat</label>
+        </div>
+        <button id="filter-button" type="submit">Apply Filter</button>
+    </form>
+
+<!-- Gallery -->
+
+<div id="filtered-gallery-container">
+
+    {% for document in req_documents %}
+    <div class="filtered-gallery-slide">
+        <a href="{% url 'maedweb:about_restaurant' document_id=document.id %}">
+            <img src="{% url 'maedweb:showimage' document_id=document.id image_name=document.main_image %}">
+            <p>{{ document.name }}</p>
+        </a>
+    </div>
+    {% endfor %}   
+        
+</div>
+
+</body>
+</html>

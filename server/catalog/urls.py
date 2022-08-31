@@ -10,6 +10,8 @@ urlpatterns = [
     path('login', view=views.login_page, name='login'),
     path('register', view=views.register_page, name='register'),
     path('restaurants', view=views.restaurants, name='restaurants'),
+    path('restaurants/filtered', view=views.restaurants_filtered, name='restaurants_filtered'),
+    path('restaurants/filter', view=views.filter_request, name='filter_request'),
     path('restaurants/<str:document_id>', view=views.about_restaurant, name='about_restaurant'),
     path('loginrequest', views.login_request, name='login_request'),
     path('registration', views.registration_request, name='registration'),
