@@ -163,6 +163,11 @@ border-spacing: 0;
     overflow-x: hidden;
 }
 
+hr{
+    border: none;
+    margin-bottom: 10.2vh;
+}
+
 #main-header-logo{
     display: block;
     float: left;
@@ -172,7 +177,14 @@ border-spacing: 0;
 }
 
 #main-nav-container{
-    display: inline-block;
+    display: block;
+    position: fixed;
+    background-color: #FFFFFF;
+    z-index: 10;
+    width: 98vw;
+    left: 0.5vw;
+    top: 0.5vh;
+    padding-bottom: 1vh;
 }
 
 .main-nav{
@@ -195,8 +207,9 @@ border-spacing: 0;
 }
 
 #main-login{
-    margin-top: 3vh;
-    margin-left: 62vw;
+    position: absolute;
+    right: 1vw;
+    top: 2.5vh;
 }
 
 #main-profile-container{
@@ -329,37 +342,17 @@ border-spacing: 0;
 /* Below is css for filter */
 
 #filter-container{
-    float:right;
-    margin-right: 16vw;
-    width: 36vw;
-    height: 13vh;
-
-}
-
-#filter-logo-text-container{
-    float:left;
     display: flex;
-    align-items: center;
-    padding-right: 5%;
-    height: 100%;
-}
-
-#filter-logo{
-    float: left;
-    width: 1.6vw;
-}
-
-#filter-text{
-    margin-left: 5%;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 550;
-    font-size: 2vh;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 13vh;
+    right: 18vw;
+    width: 45vw;
 }
 
 .one-checkbox-container{
     float:left;
-    width: 25%;
+    width: 20%;
     margin-bottom: 3.1%;
 }
 
@@ -371,13 +364,26 @@ border-spacing: 0;
 }
 
 .one-checkbox-container label{
-    font-family: 'Inter';
     font-size: 2vh;
-    margin-left: -5%;
     line-height: 2.5vh;
+    margin-left: -5%;
     align-items: center;
     cursor:pointer;
-    grid-template-columns: repeat(5, auto);
+}
+
+#filter-button{
+    width: 15%;
+    height: 2.5vh;
+    background: #D9D9D9;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    left: 1.5%;
+
+    font-size: 13px;
+    line-height: 2.5vh;
+    font-weight: 550;
 }
 
 
@@ -398,6 +404,14 @@ border-spacing: 0;
     margin-left: 2.5vw;
 }
 
+#filtered-gallery-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 95vw;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
 .swiper-container:first-of-type{
     padding-top: 100px;
 }
@@ -410,30 +424,60 @@ border-spacing: 0;
     padding-top: 0px;
 }
 
-
-.swiper-container {
+.swiper-container{
     width: 100vw;
     height: 240px;
     overflow: hidden;
-  }
+}
 
-.swiper-slide {
+.swiper-slide, .filtered-gallery-slide{
     width:fit-content;
     height: fit-content;
     margin-right: 6px;
     text-align: center;
     margin-top: 15px;
-  }
+}
 
-  .swiper-slide a img:hover, .swiper-slide a img:hover + p{
+.filtered-gallery-slide{
+    width:202px !important;
+    height: 170px !important;
+}
+
+.swiper-slide a img:hover, .swiper-slide a img:hover + p, .filtered-gallery-slide img:hover{
     width:220px;
 }
 
-.swiper-slide a img:hover{
+.swiper-slide a img:hover, .filtered-gallery-slide img:hover{
     height: 165px;
 }
 
-.swiper-slide img {
+.filtered-gallery-slide a p{
+    position: relative;
+    left: -10px;
+    background-color: #FFFFFF;
+    display: block;
+    width: 202px;
+    text-align: center;
+}
+
+.filtered-gallery-slide a img:hover + p{
+    padding-bottom: 5px;
+    padding-left: 19px;
+    padding-right: 19px;
+    left: -30px;
+}
+
+.filtered-gallery-slide img:hover{
+    position: relative;
+    left: -20px;
+}
+
+.filtered-gallery-slide:hover{
+    position: relative;
+    z-index: 10;
+}
+
+.swiper-slide img, .filtered-gallery-slide img{
     display: block;
     width:180px;
     height: 135px;
@@ -441,12 +485,12 @@ border-spacing: 0;
   }
 
 
-.swiper-wrapper a{
+.swiper-wrapper a, #filtered-gallery-container a{
     text-decoration: none;
     color: #000000;
 }
 
-.swiper-wrapper a p{
+.swiper-wrapper a p, #filtered-gallery-container a p{
     text-align: center;
     margin-top: 6px;
     width:180px;
@@ -457,7 +501,7 @@ border-spacing: 0;
     position: absolute;
     height: 80px;
     width: 30px;
-    left:97vw;
+    right:0vw;
     margin-top: 65px;
     background: rgba(217, 217, 217, 0.6);
     border-radius: 5px;
