@@ -1,5 +1,6 @@
 {
 "restaurant":{
+    "user":"testuser",
     "name":"EatMeat",
     "categories":["Most Popular", "Italian", "Mexican", "New", "Fast Food", "Asian", "American",
     "Lithuanian", "Vegan", "Fish", "Sea Food", "Meat", "Breakfast", "Grill", "Dessert", "Coffee", "Pasta"],
@@ -20,6 +21,6 @@
         "about":"In the a historic church build in 1768 in the heart of Vilnius is our restaurant ''Pirmas blynas'', literally translated to 'The first pancake'. We are a Pancake-house with a culinary and social mission. In our social restaurant your delicious pancakes are prepared and served by people with a disability. We are offering a variety of freshly made sweet and savoury pancakes, salads, a soup of the day and we serve coffee roasted by our own employees.",
         "features":"Wifi, Cool Staff, Beautiful Interior, Takeout, Reservations, Outdoor Seating, Seating, Highchairs Available, Wheelchair Accessible, Free Wifi, Table Service, Street Parking, Free off-street parking, Playgrounds, Family style, Non-smoking restaurants, Gift Cards Available"
     },
-    "menu-link":"www.something.com"
+    "menu_link":"www.something.com"
     }
 }

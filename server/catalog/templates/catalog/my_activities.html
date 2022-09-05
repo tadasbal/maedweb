@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="main-body">
+    <header>
+        <nav id="main-nav-container">
+            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+            <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+            <a href = "" class="main-nav">Entertainment</a>
+            <a href = "" class="main-nav">Events</a>
+            {% if user.is_authenticated %}
+            <div id="main-profile-container">
+                <div id="main-username">{{ user.username }}</div>
+                <div id="main-profile-button-container">
+                    <button id="main-profile-button"></button>
+                    <div id="main-profile-selection-list">
+                        <a href="">Profile</a>
+                        <a href="">Help</a>
+                        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+            {% endif %}
+        </nav>
+	</header>
+    <hr id="hr-myactivities">
+
+    <div class="my-activities-container">
+        <h1>My Activities</h1>
+        <a href="" class="one-posted-activity">
+            <span class="align-left">EatMeat</span>
+            <img src="{% static 'catalog/Figures/restaurant-icon.png' %}">
+            <span class="align-right">Restaurant</span>
+        </a>
+        <a href="" class="one-posted-activity">
+            <span class="align-left">Swimming Pool</span>
+            <img src="{% static 'catalog/Figures/entertainment-icon.png' %}">
+            <span class="align-right">Entertainment</span>
+        </a>
+        <a href="" class="one-posted-activity">
+            <span class="align-left">BestFestival</span>
+            <img src="{% static 'catalog/Figures/event-icon.png' %}">
+            <span class="align-right">Event</span>
+        </a>
+    </div>
+
+    <button id="post-new-activity-button">Post a new activity</button>
+
+    <form class="my-activities-container" id="new-activity-container" method="post">
+        <h1>New Activity</h1>
+        <fieldset>
+            <legend class="required-field">Select activity type:</legend>
+            <ul>
+            <li>
+                <input type="radio" id="new-activity-restaurant" name="new-activity-type" value="restaurant" checked="checked">
+                <label for="new-activity-restaurant">Restaurant</label>
+            </li>
+            <li>
+                <input type="radio" id="new-activity-entertainment" name="new-activity-type" value="entertainment">
+                <label for="new-activity-entertainment">Entertainment</label>
+            </li>
+            <li>
+                <input type="radio" id="new-activity-event" name="new-activity-type" value="event">
+                <label for="new-activity-event">Event</label>
+            </li>
+            </ul>
+        </fieldset>
+
+        <div class="new-activity-input-flex-container">
+            <div>
+                <label class="required-field" for="company-name">Company name</label>
+                <input id="company-name" type="text" name="company-name" required>
+            </div>
+            <div>
+                <label for="address">Address</label>
+                <input id="address" type="text" name="address">
+            </div>
+            <div>
+                <label for="phone">Phone</label>
+                <input id="phone" type="text" name="phone">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email">
+            </div>
+            <div>
+                <label for="website">Website</label>
+                <input id="website" type="url" name="website">
+            </div>
+            <div>
+                <label for="menu-link">Menu link</label>
+                <input id="menu-link" type="url" name="menu-link">
+            </div>
+            <div>
+                <label for="about-activity">About activity</label>
+                <textarea id="about-activity" type="text" name="about-activity"></textarea>
+            </div>
+            <div>
+                <label for="features">Features</label>
+                <input id="features" type="text" name="features">
+            </div>
+            <fieldset>
+                <legend class="required-field">Categories (Choose up to 3)</legend>
+                <div id="new-activity-categories">
+                    <div>
+                        <input type="checkbox" id="category-most-popular" name="categories" value="Most Popular">
+                        <label for="category-most-popular">Most Popular</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-fast-food" name="categories" value="Fast Food">
+                        <label for="category-fast-food">Fast Food</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-italian" name="categories" value="Italian">
+                        <label for="category-italian">Italian</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-grill" name="categories" value="Grill">
+                        <label for="category-grill">Grill</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-pasta" name="categories" value="Pasta">
+                        <label for="category-pasta">Pasta</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-breakfast" name="categories" value="Breakfast">
+                        <label for="category-breakfast">Breakfast</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-new" name="categories" value="New">
+                        <label for="category-new">New</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-lithuanian" name="categories" value="Lithuanian">
+                        <label for="category-lithuanian">Lithuanian</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="category-meat" name="categories" value="Meat">
+                        <label for="category-meat">Meat</label>
+                    </div>
+
+                </div>
+            </fieldset>
+            <div>
+                <label for="image" class="required-field" id="image-label">Image</label>
+                <span class="input-image-wrap">
+                    Upload Image
+                    <input type="file" id="image" name="image" accept="image/png, image/jpeg" required>
+                </span>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ import base64
 # import cv2
 import requests
 from cloudant.client import Cloudant
+import boto3
 
 # def base64_encode(img_dir):
 #     img = cv2.imread(img_dir)
@@ -64,3 +65,14 @@ def add_attachment(url, payload):
     status_code = response.status_code
     print("With status {} ".format(status_code))
     return response
+
+def upload_image_s3():
+    client = boto3.client('s3',
+        aws_access_key_id = 'AKIAYZLQNBSPCISPJNBT',
+        aws_secret_access_key = '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')
+
+    with open('spaghetti-569067_640.jpg', 'rb') as image:
+        response = client.upload_fileobj(image, 'maed-d43-images', 'test.jpg')
+
+    return response
+

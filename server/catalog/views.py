@@ -134,3 +134,6 @@ def restaurants_filtered(request):
     context['req_documents'] = req_documents
     return render(request, 'catalog/restaurants_filtered.html', context) 
 
+def my_activities(request):
+    return render(request, 'catalog/my_activities.html')
+
