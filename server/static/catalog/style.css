@@ -165,22 +165,26 @@ border-spacing: 0;
 
 hr{
     border: none;
-    margin-bottom: 10.2vh;
+    margin-bottom: 80px;
+}
+
+#hr-myactivities{
+    margin-bottom: 120px;
 }
 
 #main-header-logo{
     display: block;
     float: left;
-    width: 4vw;
-    margin-left: 2.5vw;
-    margin-top: 1.5vh;
+    width: 55px;
+    margin-left: 33px;
+    margin-top: 12px;
 }
 
 #main-nav-container{
     display: block;
     position: fixed;
-    background-color: #FFFFFF;
-    z-index: 10;
+    background-color: #ffffffd3;
+    z-index: 100;
     width: 98vw;
     left: 0.5vw;
     top: 0.5vh;
@@ -190,13 +194,11 @@ hr{
 .main-nav{
     display: block;
     float: left;
-    margin-left: 3vw;
-    margin-top: 4.2vh;
+    margin-left: 40px;
+    margin-top: 32px;
 
     font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.3vw;
+    font-size: 18px;
     text-decoration-line: none;
     color: #000000;
 }
@@ -209,7 +211,7 @@ hr{
 #main-login{
     position: absolute;
     right: 1vw;
-    top: 2.5vh;
+    top: 15px;
 }
 
 #main-profile-container{
@@ -662,6 +664,11 @@ hr{
     margin-top: -19px;
 }
 
+.required-field::after{ 
+    content: "*";
+    color: red;
+}
+
 .login-type-info-button, .register-type-info-button{
     position: relative;
     z-index: 4;
@@ -988,3 +995,350 @@ hr{
     line-height: 16px;
     text-align: justify;
 }
+
+/* My Activities */
+
+.my-activities-container{
+    width: min(1000px, 91vw);
+    background: #FAFAFA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    margin: 33px auto;
+    padding: 17px 2vw 11px;
+}
+
+.my-activities-container h1{
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.one-posted-activity{
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    align-items: center;
+    height: 55px;
+    width: 96%;
+    padding: 0 2%;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    margin-bottom: 22px;
+
+    text-decoration: none;
+    color: #000000;
+    font-size: 18px;
+}
+
+.align-left{
+    text-align: left;
+}
+
+.align-right{
+    text-align: right;
+}
+
+.one-posted-activity > img{
+    margin: 0 auto;
+}
+
+.one-posted-activity:hover{
+    box-shadow: 0px 4px 4px rgb(17, 0, 255, 0.5);
+}
+
+#post-new-activity-button{
+    display: block;
+    border: none;
+    height: 55px;
+    width: min(880px, 87vw);
+    background: rgba(255, 199, 0, 0.8);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    margin: 0 auto;
+    cursor: pointer;
+
+    color: #FFFFFF;  
+    line-height: 55px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#post-new-activity-button:hover{
+    background-color: rgb(17, 0, 255, 0.75);
+}
+
+#new-activity-container{
+    width: min(1300px, 92vw);
+    height: fit-content;
+}
+
+#new-activity-container ul{
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 13px 0 50px;
+}
+
+#new-activity-container li > label{
+    background-color: #FFFFFF;
+    background-position: right 24px bottom 8px;
+    background-repeat: no-repeat;
+    display: block;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    cursor:pointer;
+    z-index:20;
+    position:relative;
+    width: 349px;
+    height: 50px;
+    margin: 10px;
+
+    text-align: center;
+    line-height: 50px;
+    font-weight: 550;
+    font-size: 20px;
+}
+
+#new-activity-restaurant + label{
+    background-image: url("Figures/restaurant-icon.png");
+}
+
+#new-activity-entertainment + label{
+    background-image: url("Figures/entertainment-icon.png");
+}
+
+#new-activity-event + label{
+    background-image: url("Figures/event-icon.png");
+}
+
+#new-activity-container input[type="radio"]{
+    display: block;
+    position:absolute;
+    z-index:30;
+    visibility: hidden;
+}
+
+#new-activity-container li > label:hover, #new-activity-container input[type="radio"]:checked + label{
+    box-shadow: 0px 4px 4px rgb(17, 0, 255, 0.75);
+}
+
+.new-activity-input-flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.new-activity-input-flex-container > div, #new-activity-categories{
+    margin: 7px 15px 22px;
+}
+
+.new-activity-input-flex-container > div > input,
+.new-activity-input-flex-container > div > textarea, #new-activity-categories{
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    max-width: 553px;
+    width: 90vw;
+    height: 38px;
+    padding: 0 15px;
+
+    font-size: 16px;
+}
+
+#about-activity, #features, #new-activity-categories{
+    max-width: 1217px;
+    width: 90vw;
+    min-height: 73px;
+    height: fit-content;
+    padding: 15px 15px;
+}
+
+#new-activity-categories{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px 15px;
+    align-items: center;
+}
+
+#new-activity-categories > div{
+    width: 140px;
+    margin: 10px;
+    
+}
+
+#new-activity-categories > div > input[type="checkbox"]{
+    float: left;
+    height:25px;
+    width: 25px;
+    padding: 0 0 0 0px;
+    cursor:pointer;
+}
+
+#new-activity-categories > div > label{
+    display: block;
+    float: left;
+    line-height: 25px;
+    margin-left: 7px;
+    cursor: pointer;
+}
+
+#about-activity, #features{
+    border: none;
+}
+
+.new-activity-input-flex-container > div > input:focus,
+.new-activity-input-flex-container > div > textarea:focus{
+    outline: none;
+    box-shadow: 0px 4px 4px rgb(17, 0, 255, 0.25);
+}
+
+.new-activity-input-flex-container > div > label{
+    display: block;
+    margin-bottom: 6px;
+}
+
+.input-image-wrap{
+    position:relative;
+    border:none;
+    padding: 12.5px 150px;
+    color:#969696;
+    background: #FFFFFF;
+    background-image: url("Figures/upload-icon.png");
+    background-position: right 120px bottom 7px;
+    background-repeat: no-repeat;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    font-size: 13px;
+}
+
+.input-image-wrap:hover{
+    box-shadow: 0px 4px 4px rgb(17, 0, 255, 0.50);
+}
+
+#image-label{
+    margin-bottom: 16.5px;
+}
+
+.input-image-wrap > input[type="file"]{
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    opacity:0;
+    cursor:pointer;
+}
+
+.my-activities-container > button{
+    width: 234px;
+    height: 38px;
+    background: #FFC700;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    border: none;
+    margin: 15px 0;
+    cursor: pointer;
+
+    font-weight: 550;
+    font-size: 18px;
+    line-height: 38px;
+    color: #FFFFFF;
+}
+
+.my-activities-container > button:hover{
+    background: rgb(17, 0, 255);
+}
+
+
+
+/* .login-choose-type, .register-choose-type{
+    list-style-type: none;
+}
+
+.login-choose-type li{
+    float:left;
+    width:175px;
+    height:175px;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 46px;
+}
+
+.register-choose-type li{
+    float:left;
+    width:133px;
+    height:133px;
+    margin-left: 58px;
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+.login-choose-type label{
+    background-color: #FFFFFF;
+    background-position: center 15px;
+    background-repeat: no-repeat;
+
+    padding:5px;
+    cursor:pointer;
+    z-index:2;
+    position:absolute;
+    width: 175px;
+    height: 175px;
+
+    text-align: center;
+}
+
+.register-choose-type label{
+    background-color: #FFFFFF;
+    background-position: center 21.5px;
+    background-repeat: no-repeat;
+    background-size: auto 70px;
+
+    cursor:pointer;
+    z-index:2;
+    position:absolute;
+    width: 133px;
+    height: 133px;
+
+    text-align: center;
+}
+
+#login-as-user-label, #register-as-user-label{
+    background-image: url("Figures/User-type.png");
+}
+
+#login-as-organizer-label, #register-as-organizer-label{
+    background-image: url("Figures/organizer-type.png");
+}
+
+.login-choose-type label span{
+    font-family: 'Average';
+    font-size: 24px;
+    position: relative;
+    top: 138px;
+}
+
+.register-choose-type label span{
+    font-family: 'Average';
+    font-size: 16px;
+    position: relative;
+    top: 105.75px;
+}
+
+.login-choose-type input, .register-choose-type input{
+    display: block;
+    position:absolute;
+    z-index:3;
+    visibility: hidden;
+}
+
+.login-choose-type label:hover, .login-choose-type input[type="radio"]:checked + label{
+    border:2px solid rgb(17, 0, 255); 
+}*/
+
+
+
+
+
+
