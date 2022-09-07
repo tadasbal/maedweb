@@ -1070,6 +1070,7 @@ hr{
 #new-activity-container{
     width: min(1300px, 92vw);
     height: fit-content;
+    display: none;
 }
 
 #new-activity-container ul{
@@ -1230,6 +1231,17 @@ hr{
     cursor:pointer;
 }
 
+.input-image-wrap > input[type="file"]::before{
+    opacity:100;
+}
+
+#image-name{
+    display: block;
+    color: rgb(74, 0, 121);
+    font-size: 12px;
+    margin-top: 15px;
+}
+
 .my-activities-container > button{
     width: 234px;
     height: 38px;
@@ -1237,7 +1249,7 @@ hr{
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     border: none;
-    margin: 15px 0;
+    margin-bottom: 15px;
     cursor: pointer;
 
     font-weight: 550;

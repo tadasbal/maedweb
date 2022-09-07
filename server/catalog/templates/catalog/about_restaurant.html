@@ -22,6 +22,9 @@
                     <button id="main-profile-button"></button>
                     <div id="main-profile-selection-list">
                         <a href="">Profile</a>
+                        {% if user.groups.first.name == "Organizer" %}
+                        <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                        {% endif %}
                         <a href="">Help</a>
                         <a href="{% url 'maedweb:logout' %}">Sign Out</a>
                     </div>
@@ -43,7 +46,7 @@
     <div id="about-page-container">
 
         <div id="restaurant-image-wrapper">
-            <img src="{% url 'maedweb:showimage' document_id=document_id image_name=main_image %}">
+            <img src="{{ document.image_url }}">
             <div>
                 {{document.name}}
             </div>
@@ -134,7 +137,7 @@
 
         <div id="reservation-menu-categories-container">
             <a href="">Make a reservation</a>
-            <a href="">Menu</a>
+            <a href="{{ documents.menu_link }}">Menu</a>
             <div id="categories-container">
                 <h1>Categories</h1>
                 </br>

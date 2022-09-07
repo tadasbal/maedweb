@@ -4,7 +4,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.urls import reverse
-from .apis import retrieve_img, retrieve_all_documents
+from .apis import retrieve_img, retrieve_all_documents, upload_image_s3, add_restaurant, category_filter, search
+from .models import Restaurant
 import requests
 from requests.auth import HTTPBasicAuth
 import logging
@@ -78,21 +79,22 @@ def registration_request(request):
 
 def restaurants(request):
     context = {}
-    converted_documents = []
     my_documents = retrieve_all_documents()
     for document in my_documents:
-        converted_document = {}
-        converted_document['id'] = document['_id']
-        converted_document['name'] = document['name']
-        converted_document['categories'] = document['categories']
+        document['id'] = document.pop('_id')
+    # for document in my_documents:
+    #     converted_document = {}
+    #     converted_document['id'] = document['_id']
+    #     converted_document['name'] = document['name']
+    #     converted_document['categories'] = document['categories']
 
-        for img_name in document['_attachments']:
-            images = []
-            images.append(img_name)
-            converted_document['images'] = images
-        converted_document['main_image'] = images[0]
-        converted_documents.append(converted_document)
-    context['converted_documents'] = converted_documents
+    #     for img_name in document['_attachments']:
+    #         images = []
+    #         images.append(img_name)
+    #         converted_document['images'] = images
+    #     converted_document['main_image'] = images[0]
+    #     converted_documents.append(converted_document)
+    context['my_documents'] = my_documents
     return render(request, 'catalog/restaurants.html', context)
 
 def about_restaurant(request, document_id):
@@ -102,38 +104,54 @@ def about_restaurant(request, document_id):
         if document['_id'] == document_id:
             req_document = document
             break
-    for img_name in req_document['_attachments']:
-        images = []
-        images.append(img_name)
+    # for img_name in req_document['_attachments']:
+    #     images = []
+    #     images.append(img_name)
     context['document'] = req_document
-    context['main_image'] = images[0]
+    # context['main_image'] = images[0]
     context['document_id'] = document_id
     return render(request, 'catalog/about_restaurant.html', context)
+
+def search_request(request):
+    if request.method == 'POST':
+        searchtxt = request.POST['search']
+        req_documents = search(searchtxt)
+        request.session['req_documents'] = req_documents
+        return redirect('maedweb:restaurants_filtered')
 
 def filter_request(request):
     if request.method == 'POST':
         selected_categories = request.POST.getlist('filter_checkbox')
-        request.session['selected-categories'] = selected_categories
+        req_documents = category_filter(selected_categories)
+        request.session['req_documents'] = req_documents
         return redirect('maedweb:restaurants_filtered')
 
 def restaurants_filtered(request):
     context = {}
-    req_documents = []
-    selected_categories = request.session['selected-categories']
-    documents = retrieve_all_documents()
-    for document in documents:
-        for category in selected_categories:
-            if category in document['categories']:
-                req_documents.append(document)
-                break
-    for document in req_documents:
-        document['id'] = document.pop('_id')
-        document['attachments'] = document.pop('_attachments')
-        images = list(document['attachments'].keys())
-        document['main_image'] = images[0]
+    req_documents = request.session['req_documents']
     context['req_documents'] = req_documents
     return render(request, 'catalog/restaurants_filtered.html', context) 
 
-def my_activities(request):
+def my_activities(request, username):
     return render(request, 'catalog/my_activities.html')
+
+def new_activity_request(request, username):
+    if request.method == 'POST':
+        form = request.POST
+
+        image = request.FILES['image']
+        image_url = upload_image_s3(image, form['company-name'])
+
+        restaurant = Restaurant
+        restaurant.user = username 
+        restaurant.name = form['company-name']
+        restaurant.categories = request.POST.getlist('categories')
+        restaurant.reviews = {"Overall":0, "Food":0, "Price":0, "Service":0, "Place":0}
+        restaurant.contacts = {"address":form['address'], "phone":form['phone'], "email":form['email'], "website":form['website']}
+        restaurant.details = {"about":form['about-activity'], "features":form['features']}
+        restaurant.menu_link = form['menu-link']
+        restaurant.image_url = image_url
+        add_restaurant(restaurant)
+
+        return redirect('maedweb:my_activities', username=username)
 

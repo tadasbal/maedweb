@@ -22,6 +22,9 @@
                     <button id="main-profile-button"></button>
                     <div id="main-profile-selection-list">
                         <a href="">Profile</a>
+                        {% if user.groups.first.name == "Organizer" %}
+                        <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                        {% endif %}
                         <a href="">Help</a>
                         <a href="{% url 'maedweb:logout' %}">Sign Out</a>
                     </div>
@@ -55,7 +58,21 @@
 
     <button id="post-new-activity-button">Post a new activity</button>
 
-    <form class="my-activities-container" id="new-activity-container" method="post">
+    <script>
+        document.getElementById('post-new-activity-button').addEventListener('click',function() {
+            var btn = document.getElementById('new-activity-container');
+            var displayValue = window.getComputedStyle(btn).display;
+            if(displayValue === 'none'){
+                document.getElementById('new-activity-container').style.display = 'block';
+            }
+            else{
+                document.getElementById('new-activity-container').style.display = 'none';
+            }
+            })
+    </script>
+
+    <form class="my-activities-container" id="new-activity-container" method="post" action="{% url 'maedweb:new_activity_request' username=user.username %}" enctype="multipart/form-data">
+        {% csrf_token %}
         <h1>New Activity</h1>
         <fieldset>
             <legend class="required-field">Select activity type:</legend>
@@ -106,7 +123,7 @@
             </div>
             <div>
                 <label for="features">Features</label>
-                <input id="features" type="text" name="features">
+                <textarea id="features" type="text" name="features"></textarea>
             </div>
             <fieldset>
                 <legend class="required-field">Categories (Choose up to 3)</legend>
@@ -156,6 +173,19 @@
                     Upload Image
                     <input type="file" id="image" name="image" accept="image/png, image/jpeg" required>
                 </span>
+                <span id="image-name">No image is selected</span>
+
+                <script>
+                    let input = document.getElementById("image");
+                    let imageName = document.getElementById("image-name")
+            
+                    input.addEventListener("change", ()=>{
+                        let inputImage = document.querySelector("input[type=file]").files[0];
+            
+                        imageName.innerText = inputImage.name;
+                    })
+                </script>
+
             </div>
         </div>
         <button type="submit">Submit</button>

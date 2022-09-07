@@ -22,6 +22,9 @@
                     <button id="main-profile-button"></button>
                     <div id="main-profile-selection-list">
                         <a href="">Profile</a>
+                        {% if user.groups.first.name == "Organizer" %}
+                        <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                        {% endif %}
                         <a href="">Help</a>
                         <a href="{% url 'maedweb:logout' %}">Sign Out</a>
                     </div>
@@ -36,7 +39,7 @@
     <hr>
 
     <!-- Search -->
-    <form action="" method="post">
+    <form action="{% url 'maedweb:search_request' %}" method="post">
     {% csrf_token %}
         <div id="search-form">
             <input id="search-input" type="text" placeholder="Search:" name="search">
@@ -93,7 +96,7 @@
     {% for document in req_documents %}
     <div class="filtered-gallery-slide">
         <a href="{% url 'maedweb:about_restaurant' document_id=document.id %}">
-            <img src="{% url 'maedweb:showimage' document_id=document.id image_name=document.main_image %}">
+            <img src="{{ document.image_url }}">
             <p>{{ document.name }}</p>
         </a>
     </div>
