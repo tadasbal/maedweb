@@ -66,8 +66,8 @@ def add_attachment(url, payload):
 
 def upload_image_s3(image, activity_name):
     client = boto3.client('s3',
-        aws_access_key_id = 'AKIAYZLQNBSPNQOH4NPL',
-        aws_secret_access_key = '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')
+        aws_access_key_id = '',
+        aws_secret_access_key = '')
 
     randomstring = randomword(10)
     image_name = activity_name + '-' + randomstring + '.jpg'
