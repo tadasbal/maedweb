@@ -1,6 +1,6 @@
 Django
 requests
 gunicorn
-opencv-python
 cloudant
 boto3
+python-dotenv

@@ -4,6 +4,10 @@ import requests
 from cloudant.client import Cloudant
 import boto3
 import random, string
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # def base64_encode(img_dir):
 #     img = cv2.imread(img_dir)
@@ -15,8 +19,8 @@ import random, string
 
 def retrieve_img(document_id, img_name):
     client = Cloudant.iam(
-        account_name="516178ef-46af-4c3f-b149-4740eaabf89e-bluemix",
-        api_key="vzhNu-YSn2YZf4JQ0rXcqAbnE1iYIItmnfglmgYYvZCP",
+        account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
+        api_key=os.environ.get("CLOUDANT_API_KEY"),
         connect=True,
     )
     my_database = client['maed-restaurants']
@@ -28,8 +32,8 @@ def retrieve_img(document_id, img_name):
 
 def retrieve_all_documents():
     client = Cloudant.iam(
-        account_name="516178ef-46af-4c3f-b149-4740eaabf89e-bluemix",
-        api_key="vzhNu-YSn2YZf4JQ0rXcqAbnE1iYIItmnfglmgYYvZCP",
+        account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
+        api_key=os.environ.get("CLOUDANT_API_KEY"),
         connect=True,
     )
     my_database = client['maed-restaurants']
@@ -131,3 +135,5 @@ def category_filter(selected_categories):
     for document in req_documents:
         document['id'] = document.pop('_id')
     return req_documents
+
+print(retrieve_all_documents())
