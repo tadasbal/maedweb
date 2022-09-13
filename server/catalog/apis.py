@@ -4,10 +4,8 @@ import requests
 from cloudant.client import Cloudant
 import boto3
 import random, string
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
-
-load_dotenv()
 
 # def base64_encode(img_dir):
 #     img = cv2.imread(img_dir)
@@ -18,6 +16,7 @@ load_dotenv()
 #     return b64_string
 
 def retrieve_img(document_id, img_name):
+    # load_dotenv()
     client = Cloudant.iam(
         account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
         api_key=os.environ.get("CLOUDANT_API_KEY"),
@@ -31,6 +30,7 @@ def retrieve_img(document_id, img_name):
     return image
 
 def retrieve_all_documents():
+    # load_dotenv()
     client = Cloudant.iam(
         account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
         api_key=os.environ.get("CLOUDANT_API_KEY"),
@@ -68,10 +68,21 @@ def add_attachment(url, payload):
     print("With status {} ".format(status_code))
     return response
 
+def user_activities(user):
+    user_documents = []
+    my_documents = retrieve_all_documents()
+    for document in my_documents:
+        if document['user'] == user:
+            document['id'] = document.pop('_id')
+            user_documents.append(document)
+
+    return user_documents
+
 def upload_image_s3(image, activity_name):
+    # load_dotenv()
     client = boto3.client('s3',
-        aws_access_key_id = '',
-        aws_secret_access_key = '')
+        aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY"))
 
     randomstring = randomword(10)
     image_name = activity_name + '-' + randomstring + '.jpg'
@@ -80,6 +91,20 @@ def upload_image_s3(image, activity_name):
 
     url = "https://maed-d43-images.s3.eu-central-1.amazonaws.com/" + image_name
     return url
+
+def delete_image_s3(image_url):
+    # load_dotenv()
+    client = boto3.client('s3',
+        aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY"))
+
+    image_name = image_url.split('/')[-1]
+
+    response = client.delete_object(
+        Bucket='maed-d43-images',
+        Key=image_name,
+    )
+    return response
 
 def add_restaurant(restaurant):
     payload = {}
@@ -135,3 +160,45 @@ def category_filter(selected_categories):
     for document in req_documents:
         document['id'] = document.pop('_id')
     return req_documents
+
+def retrieve_one_document(document_id):
+    # load_dotenv()
+    client = Cloudant.iam(
+        account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
+        api_key=os.environ.get("CLOUDANT_API_KEY"),
+        connect=True,
+    )
+    my_database = client['maed-restaurants']
+    document = my_database[document_id]
+    return document
+
+def update_document(restaurant, document):
+    document['name'] = restaurant.name
+    document['categories'] = restaurant.categories
+    document['contacts'] = restaurant.contacts
+    document['details'] = restaurant.details
+    document['menu_link'] = restaurant.menu_link
+
+    if hasattr(restaurant, 'image_url'):
+        document['image_url'] = restaurant.image_url
+
+    document.save()
+    return document
+
+
+# retrieve_one_document('2fda0fc8149289b8301f679ddea712df')
+
+# payload = {}
+#     payload['restaurant'] = {
+#         "user":restaurant.user,
+#         "name":restaurant.name,
+#         "categories":restaurant.categories,
+#         "reviews":restaurant.reviews,
+#         "contacts":restaurant.contacts,
+#         "details":restaurant.details,
+#         "menu_link":restaurant.menu_link,
+#         "image_url":restaurant.image_url
+#     }
+
+
+

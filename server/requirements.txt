@@ -3,4 +3,3 @@ requests
 gunicorn
 cloudant
 boto3
-python-dotenv

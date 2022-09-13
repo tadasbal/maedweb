@@ -39,21 +39,135 @@
 
     <div class="my-activities-container">
         <h1>My Activities</h1>
-        <a href="" class="one-posted-activity">
-            <span class="align-left">EatMeat</span>
+        {% for document in user_documents %}
+        <button class="one-posted-activity" id="my-activities-{{ document.id }}">
+            <span class="align-left">{{document.name}}</span>
             <img src="{% static 'catalog/Figures/restaurant-icon.png' %}">
             <span class="align-right">Restaurant</span>
-        </a>
-        <a href="" class="one-posted-activity">
+        </button>
+
+        <div class="my-activities-container edit-activity-container" id="edit-activity-{{ document.id }}">
+        <form method="post" action="{% url 'maedweb:edit_activity_request' username=user.username document_id=document.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="new-activity-input-flex-container">
+                <div>
+                    <label for="company-name">Company name</label>
+                    <input id="company-name" type="text" name="company-name" value="{{ document.name }}">
+                </div>
+                <div>
+                    <label for="address">Address</label>
+                    <input id="address" type="text" name="address" value="{{ document.contacts.address }}">
+                </div>
+                <div>
+                    <label for="phone">Phone</label>
+                    <input id="phone" type="text" name="phone" value="{{ document.contacts.phone }}">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" value="{{ document.contacts.email }}">
+                </div>
+                <div>
+                    <label for="website">Website</label>
+                    <input id="website" type="url" name="website" value="{{ document.contacts.website }}">
+                </div>
+                <div>
+                    <label for="menu-link">Menu link</label>
+                    <input id="menu-link" type="url" name="menu-link" value="{{ document.menu_link }}">
+                </div>
+                <div>
+                    <label for="about-activity">About activity</label>
+                    <textarea id="about-activity" type="text" name="about-activity">{{ document.details.about }}</textarea>
+                </div>
+                <div>
+                    <label for="features">Features</label>
+                    <textarea id="features" type="text" name="features">{{ document.details.features }}</textarea>
+                </div>
+                <fieldset>
+                    <legend class="required-field">Categories (Choose up to 3)</legend>
+                    <div id="new-activity-categories">
+                        <div>
+                            <input type="checkbox" id="category-most-popular" name="categories" value="Most Popular" {% if "Most Popular" in document.categories %} checked {% endif %}>
+                            <label for="category-most-popular">Most Popular</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-fast-food" name="categories" value="Fast Food" {% if "Fast Food" in document.categories %} checked {% endif %}>
+                            <label for="category-fast-food">Fast Food</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-italian" name="categories" value="Italian" {% if "Italian" in document.categories %} checked {% endif %}>
+                            <label for="category-italian">Italian</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-grill" name="categories" value="Grill" {% if "Grill" in document.categories %} checked {% endif %}>
+                            <label for="category-grill">Grill</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-pasta" name="categories" value="Pasta" {% if "Pasta" in document.categories %} checked {% endif %}>
+                            <label for="category-pasta">Pasta</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-breakfast" name="categories" value="Breakfast" {% if "Breakfast" in document.categories %} checked {% endif %}>
+                            <label for="category-breakfast">Breakfast</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-new" name="categories" value="New" {% if "New" in document.categories %} checked {% endif %}>
+                            <label for="category-new">New</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-lithuanian" name="categories" value="Lithuanian" {% if "Lithuanian" in document.categories %} checked {% endif %}>
+                            <label for="category-lithuanian">Lithuanian</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-meat" name="categories" value="Meat" {% if "Meat" in document.categories %} checked {% endif %}>
+                            <label for="category-meat">Meat</label>
+                        </div>
+    
+                    </div>
+                </fieldset>
+                <div>
+                    <label for="image" id="image-label">Image</label>
+                    <img class="edit-image" src="{{document.image_url}}">
+                    <span class="input-image-wrap">
+                        Change Image
+                        <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+                    </span>
+                    <span id="image-name">No image is selected</span>
+
+                    <script>
+                        document.getElementById('my-activities-{{ document.id }}').addEventListener('click',function() {
+                            var myActivity = document.getElementById('edit-activity-{{ document.id }}');
+                            var displayValue = window.getComputedStyle(myActivity).display;
+                            if(displayValue === 'none'){
+                                document.getElementById('edit-activity-{{ document.id }}').style.display = 'block';
+                            }
+                            else{
+                                document.getElementById('edit-activity-{{ document.id }}').style.display = 'none';
+                            }
+                            })
+                    </script>
+    
+                </div>
+            </div>
+            <button type="submit">Submit Changes</button>
+        </form>
+
+        <form method="post" action="{% url 'maedweb:delete_activity_request' username=user.username document_id=document.id %}">
+            {% csrf_token %}
+            <button class="delete-activity-button" type="submit">Delete Activity</button>
+        </form>
+
+        </div>
+        {% endfor %}
+        <button class="one-posted-activity">
             <span class="align-left">Swimming Pool</span>
             <img src="{% static 'catalog/Figures/entertainment-icon.png' %}">
             <span class="align-right">Entertainment</span>
-        </a>
-        <a href="" class="one-posted-activity">
+        </button>
+        <button class="one-posted-activity">
             <span class="align-left">BestFestival</span>
             <img src="{% static 'catalog/Figures/event-icon.png' %}">
             <span class="align-right">Event</span>
-        </a>
+        </button>
     </div>
 
     <button id="post-new-activity-button">Post a new activity</button>

@@ -16,6 +16,8 @@ urlpatterns = [
     path('restaurants/<str:document_id>', view=views.about_restaurant, name='about_restaurant'),
     path('myactivities/<str:username>', view=views.my_activities, name='my_activities'),
     path('myactivities/<str:username>/new', view=views.new_activity_request, name='new_activity_request'),
+    path('myactivities/<str:username>/<str:document_id>/edit', view=views.edit_activity_request, name='edit_activity_request'),
+    path('myactivities/<str:username>/<str:document_id>/delete', view=views.delete_activity_request, name='delete_activity_request'),
     path('loginrequest', views.login_request, name='login_request'),
     path('registration', views.registration_request, name='registration'),
     path('logout', views.logout_request, name='logout'),

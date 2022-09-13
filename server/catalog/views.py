@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.urls import reverse
-from .apis import retrieve_img, retrieve_all_documents, upload_image_s3, add_restaurant, category_filter, search
+from .apis import retrieve_img, retrieve_all_documents, retrieve_one_document, upload_image_s3, add_restaurant, category_filter, search, user_activities, update_document, delete_image_s3
 from .models import Restaurant
 import requests
 from requests.auth import HTTPBasicAuth
@@ -133,7 +133,10 @@ def restaurants_filtered(request):
     return render(request, 'catalog/restaurants_filtered.html', context) 
 
 def my_activities(request, username):
-    return render(request, 'catalog/my_activities.html')
+    context = {}
+    user_documents = user_activities(username)
+    context['user_documents'] = user_documents
+    return render(request, 'catalog/my_activities.html', context)
 
 def new_activity_request(request, username):
     if request.method == 'POST':
@@ -154,4 +157,36 @@ def new_activity_request(request, username):
         add_restaurant(restaurant)
 
         return redirect('maedweb:my_activities', username=username)
+
+def edit_activity_request(request, username, document_id):
+    if request.method == 'POST':
+        document = retrieve_one_document(document_id)
+        form = request.POST
+
+        restaurant = Restaurant
+        restaurant.name = form['company-name']
+        restaurant.categories = request.POST.getlist('categories')
+        restaurant.contacts = {"address":form['address'], "phone":form['phone'], "email":form['email'], "website":form['website']}
+        restaurant.details = {"about":form['about-activity'], "features":form['features']}
+        restaurant.menu_link = form['menu-link']
+
+        try:
+            image = request.FILES['image']
+            delete_image_s3(document['image_url'])
+            image_url = upload_image_s3(image, restaurant.name)
+            restaurant.image_url = image_url
+        except:
+            print('No new image attached')
+
+        update_document(restaurant, document)
+
+        return redirect('maedweb:my_activities', username=username)
+
+def delete_activity_request(request, username, document_id):
+    if request.method == 'POST':
+        document = retrieve_one_document(document_id)
+        delete_image_s3(document['image_url'])
+        document.delete()
+        return redirect('maedweb:my_activities', username=username)
+
 
