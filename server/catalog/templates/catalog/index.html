@@ -12,9 +12,11 @@
         <h1 id="index-header">What are you looking for?</h1>
 	</header>
     <nav>
-        <a href = "/catalog/restaurants" class="index-nav">Restaurants</a>
-        <a href = "" class="index-nav">Entertainment</a>
-        <a href = "" class="index-nav">Events</a>
+        <div class="index-nav-flex-wrapper">
+            <a href = "/catalog/restaurants" class="index-nav">Restaurants</a>
+            <a href = "" class="index-nav">Entertainment</a>
+            <a href = "" class="index-nav">Events</a>
+        </div>
         {% if user.is_authenticated %}
         <div id="index-profile-container">
             <div id="index-username">{{ user.username }}</div>

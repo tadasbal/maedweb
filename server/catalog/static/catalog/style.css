@@ -36,23 +36,23 @@ border-spacing: 0;
     background-position: center;
     background-attachment: fixed;
     background-color: rgb(145, 55, 3);
+    font-family: 'Inter';
 }
 
 #login{
     position: absolute;
     display: block;
-    width: 4vw;
-    left: 93.5vw;
-    top: 3vh;
+    width: 58px;
+    right: 2.5vw;
+    top: 25px;
 }
 
 #index-header{
     margin-top: 16vh;
-    margin-bottom: 18.8vh;
+    margin-bottom: 15vh;
     font-family: 'Italiana';
-    font-style: normal;
     font-weight: 400;
-    font-size: 5vw;
+    font-size: 72px;
     align-items: center;
     text-align: center;
     color: #FFFFFF;
@@ -61,24 +61,28 @@ border-spacing: 0;
 
 #index-logo{
     display: block;
-    margin: 0 auto;
-    width:20%;
+    margin: 5vh auto 0;
+    width:300px;
+}
+
+.index-nav-flex-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .index-nav{
     background: rgba(255, 255, 255, 0.6);
     display: block;
-    height: 9.6vh;
-    width: 29.6vw;
-    float: left;
-    margin-left: 2.8vw;
+    height: 90px;
+    width: max(400px, 28vw);
+    margin-bottom: 10px;
 
     text-decoration: none;
     font-family: 'Average';
     font-weight: 550;
-    font-size: 2vw;
-    line-height: 9.6vh;
-    align-items: center;
+    font-size: 32px;
+    line-height: 90px;
     text-align: center;
     color: #000000;
 }
@@ -97,7 +101,6 @@ border-spacing: 0;
 #index-username{
     margin-right: 10px;
     width: fit-content;
-    font-family: 'Inter';
     text-align: right;
     font-weight: 550;
     font-size: 20px;
@@ -143,7 +146,6 @@ border-spacing: 0;
     background-color: rgba(255, 199, 0, 0.8);
     border-bottom: #000000 solid 1px;
 
-    font-family: 'Inter';
     font-weight: 550;
     font-size: 14px;
     line-height: 40px;
