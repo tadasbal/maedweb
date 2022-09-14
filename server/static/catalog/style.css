@@ -162,7 +162,6 @@ border-spacing: 0;
 
 #main-body{
     background-color: #FFFFFF;
-    overflow-x: hidden;
 }
 
 hr{
@@ -428,10 +427,11 @@ hr{
     padding-top: 0px;
 }
 
+
 .swiper-container{
-    width: 100vw;
     height: 240px;
     overflow: hidden;
+    clear: both;
 }
 
 .swiper-slide, .filtered-gallery-slide{

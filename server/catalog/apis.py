@@ -4,7 +4,7 @@ import requests
 from cloudant.client import Cloudant
 import boto3
 import random, string
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 
 # def base64_encode(img_dir):
@@ -16,7 +16,7 @@ import os
 #     return b64_string
 
 def connect_cloudant():
-    # load_dotenv()
+    load_dotenv()
     client = Cloudant.iam(
         account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
         api_key=os.environ.get("CLOUDANT_API_KEY"),
@@ -25,7 +25,7 @@ def connect_cloudant():
     return client
 
 def connect_aws():
-    # load_dotenv()
+    load_dotenv()
     client = boto3.client('s3',
         aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID"),
         aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY"))
