@@ -1257,7 +1257,7 @@ hr{
     opacity:100;
 }
 
-#image-name{
+.image-name{
     display: block;
     color: rgb(74, 0, 121);
     font-size: 12px;

@@ -129,9 +129,16 @@
                     <img class="edit-image" src="{{document.image_url}}">
                     <span class="input-image-wrap">
                         Change Image
-                        <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+                        <input type="file" id="image-{{ document.id }}" name="image" accept="image/png, image/jpeg">
                     </span>
-                    <span id="image-name">No image is selected</span>
+                    <span class="image-name" id="image-name-{{ document.id }}">No image is selected</span>
+
+                    <script>
+                        document.getElementById("image-{{ document.id }}").addEventListener("change", ()=>{
+                            let editInputImage = document.querySelector("#image-{{ document.id }}").files[0];
+                            document.getElementById("image-name-{{ document.id }}").innerText = editInputImage.name;
+                        })
+                    </script>
 
                     <script>
                         document.getElementById('my-activities-{{ document.id }}').addEventListener('click',function() {
@@ -287,14 +294,14 @@
                     Upload Image
                     <input type="file" id="image" name="image" accept="image/png, image/jpeg" required>
                 </span>
-                <span id="image-name">No image is selected</span>
+                <span class="image-name" id="image-name">No image is selected</span>
 
                 <script>
                     let input = document.getElementById("image");
                     let imageName = document.getElementById("image-name")
             
                     input.addEventListener("change", ()=>{
-                        let inputImage = document.querySelector("input[type=file]").files[0];
+                        let inputImage = document.querySelector("#image").files[0];
             
                         imageName.innerText = inputImage.name;
                     })

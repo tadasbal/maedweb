@@ -15,13 +15,25 @@ import os
 #     b64_string = base64.b64encode(jpg_img[1]).decode('utf-8')
 #     return b64_string
 
-def retrieve_img(document_id, img_name):
+def connect_cloudant():
     # load_dotenv()
     client = Cloudant.iam(
         account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
         api_key=os.environ.get("CLOUDANT_API_KEY"),
         connect=True,
     )
+    return client
+
+def connect_aws():
+    # load_dotenv()
+    client = boto3.client('s3',
+        aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY"))
+
+    return client
+
+def retrieve_img(document_id, img_name):
+    client = connect_cloudant()
     my_database = client['maed-restaurants']
     my_document = my_database[document_id]
     img_data=my_document.get_attachment(attachment=img_name)
@@ -30,17 +42,18 @@ def retrieve_img(document_id, img_name):
     return image
 
 def retrieve_all_documents():
-    # load_dotenv()
-    client = Cloudant.iam(
-        account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
-        api_key=os.environ.get("CLOUDANT_API_KEY"),
-        connect=True,
-    )
+    client = connect_cloudant()
     my_database = client['maed-restaurants']
     my_documents = []
     for document in my_database:
         my_documents.append(document)
     return my_documents
+
+def retrieve_one_document(document_id):
+    client = connect_cloudant()
+    my_database = client['maed-restaurants']
+    document = my_database[document_id]
+    return document
 
 def create_document(url, payload):
     headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
@@ -79,10 +92,7 @@ def user_activities(user):
     return user_documents
 
 def upload_image_s3(image, activity_name):
-    # load_dotenv()
-    client = boto3.client('s3',
-        aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID"),
-        aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY"))
+    client = connect_aws()
 
     randomstring = randomword(10)
     image_name = activity_name + '-' + randomstring + '.jpg'
@@ -93,10 +103,7 @@ def upload_image_s3(image, activity_name):
     return url
 
 def delete_image_s3(image_url):
-    # load_dotenv()
-    client = boto3.client('s3',
-        aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID"),
-        aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY"))
+    client = connect_aws()
 
     image_name = image_url.split('/')[-1]
 
@@ -136,7 +143,7 @@ def search(searchtxt):
             categories = ''
             categories = category + ' ' + categories
         for keyword in keywords:
-            if keyword in document['name'].casefold() or keyword in categories.casefold() or keyword in document['details']['about'].casefold() or keyword in document['details']['features'].casefold():
+            if keyword.casefold() in document['name'].casefold() or keyword.casefold() in categories.casefold() or keyword.casefold() in document['details']['about'].casefold() or keyword.casefold() in document['details']['features'].casefold():
                 req_documents.append(document)
                 break
 
@@ -161,17 +168,6 @@ def category_filter(selected_categories):
         document['id'] = document.pop('_id')
     return req_documents
 
-def retrieve_one_document(document_id):
-    # load_dotenv()
-    client = Cloudant.iam(
-        account_name=os.environ.get("CLOUDANT_ACCOUNT_NAME"),
-        api_key=os.environ.get("CLOUDANT_API_KEY"),
-        connect=True,
-    )
-    my_database = client['maed-restaurants']
-    document = my_database[document_id]
-    return document
-
 def update_document(restaurant, document):
     document['name'] = restaurant.name
     document['categories'] = restaurant.categories
@@ -184,6 +180,8 @@ def update_document(restaurant, document):
 
     document.save()
     return document
+
+
 
 
 # retrieve_one_document('2fda0fc8149289b8301f679ddea712df')
