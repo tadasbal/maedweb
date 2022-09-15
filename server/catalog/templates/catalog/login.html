@@ -5,6 +5,7 @@
     <title>MAED</title>
     {% load static %}
     <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
 </head>
 <body id="login-body">
@@ -21,20 +22,18 @@
         {% csrf_token %}
             <fieldset>
                 <legend class="login-account-type-legend">Choose account type:</legend>
-                <ul class="login-choose-type">
-                <li>
+                <div class="login-choose-type">
                     <input type="radio" id="login-as-user" name="login-account-type" value="user" checked="checked">
                     <label for="login-as-user" id="login-as-user-label"><span>User</span></label>
                     <div class="login-type-info-button">?</div>
                     <div class="login-type-info">If you want to search and register for entertainment, choose this type</div>
-                </li>
-                <li>
+                </div>
+                <div class="login-choose-type">
                     <input type="radio" id="login-as-organizer" name="login-account-type" value="organizer">
                     <label for="login-as-organizer" id="login-as-organizer-label"><span>Organizer</span></label>
                     <div class="login-type-info-button">?</div>
                     <div class="login-type-info">If you want to post your entertainment, choose this type</div>
-                </li>
-                </ul>
+                </div>
             </fieldset>
             {% if message %}
             <div id="login-alert">
