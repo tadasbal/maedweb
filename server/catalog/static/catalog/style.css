@@ -470,9 +470,9 @@ hr{
 #filtered-gallery-container{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     width: 95vw;
     margin: 0 auto;
-    padding-top: 40px;
 }
 
 .swiper-container{
@@ -504,7 +504,7 @@ hr{
 .filtered-gallery-slide a p{
     position: relative;
     left: -10px;
-    background-color: #FFFFFF;
+    background-color: #ffffffc7;
     display: block;
     width: 202px;
     text-align: center;
@@ -617,10 +617,6 @@ hr{
     padding-top: 1.5%;
 }
 
-.register-choose-type{
-    list-style-type: none;
-}
-
 .login-choose-type{
     float:left;
     width:40%;
@@ -628,20 +624,18 @@ hr{
     margin-left: 6%;
     margin-top: 25px;
     margin-bottom: 46px;
-
-    border: #000000 1px solid;
 }
 
-.register-choose-type li{
+.register-choose-type{
     float:left;
-    width:133px;
+    width:30.5%;
     height:133px;
-    margin-left: 58px;
+    margin-left: 13.33%;
     margin-top: 30px;
     margin-bottom: 25px;
 }
 
-.login-choose-type label{
+.login-choose-type label, .register-choose-type label{
     background-color: #FFFFFF;
     background-position: center 15px;
     background-repeat: no-repeat;
@@ -657,34 +651,13 @@ hr{
     text-align: center;
 }
 
-.register-choose-type label{
-    background-color: #FFFFFF;
-    background-position: center 21.5px;
-    background-repeat: no-repeat;
-    background-size: auto 70px;
-
-    cursor:pointer;
-    z-index:2;
-    position:absolute;
-    width: 133px;
-    height: 133px;
-
-    text-align: center;
-}
-
 #login-as-user-label, #register-as-user-label{
     background-image: url("Figures/User-type.png");
-}
-
-#login-as-user-label{
     background-size: 42.857% auto;
 }
 
 #login-as-organizer-label, #register-as-organizer-label{
     background-image: url("Figures/organizer-type.png");
-}
-
-#login-as-organizer-label{
     background-size: 68% auto;
 }
 
@@ -716,6 +689,7 @@ hr{
 
 .register-choose-type label:hover, .register-choose-type input[type="radio"]:checked + label{
     border:2px solid rgb(17, 0, 255); 
+    padding: 0px;
 }
 
 #login-alert{
@@ -754,14 +728,9 @@ hr{
     color: #EC2A00;
 }
 
-.login-type-info-button{
+.login-type-info-button, .register-type-info-button{
     left: 85%;
     bottom:27px;
-}
-
-.register-type-info-button{
-    left:108px;
-    top:108px;
 }
 
 .login-type-info, .register-type-info{
@@ -958,18 +927,18 @@ hr{
 
 #reviews-container{
     /* min-width: 256px; */
-    width: 20.9%;
+    width: 24.9%;
     height: 316px;
 }
 
 .reviews{
     display: block;
-    width: 94%;
+    width: fit-content;
     margin: 15px auto;
 }
 
 .reviews > span{
-    margin-right: 5%;
+    margin-right: 0;
     display: block;
     width: 70px;
     float: left;
@@ -991,7 +960,7 @@ hr{
 
 #contacts-container{
     /* min-width: 572px; */
-    width: 46.7%;
+    width: 42.7%;
     height: 316px;
 }
 
@@ -1012,6 +981,7 @@ hr{
     display: block;
     margin: 0 auto;
     padding-top: 10px;
+    max-width: 90%;
 }
 
 #reservation-menu-categories-container{
@@ -1065,6 +1035,18 @@ hr{
     line-height: 16px;
     text-align: justify;
 }
+
+@media screen and (max-width: 1025px) {
+    #about-page-container {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+    #restaurant-image-wrapper, #reviews-container, #contacts-container, #reservation-menu-categories-container, #details-container{
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+  }
 
 /* My Activities */
 

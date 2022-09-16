@@ -10,13 +10,53 @@
 </head>
 <body id="login-body">
     <header>
-        <nav class="login-nav">
-            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
-            <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
-            <a href = "" class="main-nav">Entertainment</a>
-            <a href = "" class="main-nav">Events</a>
-        </nav>
-	</header>
+        <div id="expanded-nav">
+            <nav class="main-nav-container">
+                <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+                <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+                <a href = "" class="main-nav">Entertainment</a>
+                <a href = "" class="main-nav">Events</a>
+            </nav>
+
+            <hr>
+        </div>
+
+
+<!-- Collapsed nav -->
+
+        <div id="collapsed-nav">
+            <nav>
+                <div class="main-nav-container">
+                    <button id="collapsed-nav-button"><img src="{% static 'catalog/Figures/menu.png' %}"></button>
+
+                    <!-- Javascrpit for collapsed nav -->
+
+                    <script>
+                        document.getElementById('collapsed-nav-button').addEventListener('click',function() {
+                            var navMenu = document.getElementById('collapsed-nav-expanded');
+                            var navMenuDisplay = window.getComputedStyle(navMenu).display;
+                            if(navMenuDisplay === 'none'){
+                                navMenu.style.display = 'block';
+                            }
+                            else{
+                                navMenu.style.display = 'none';
+                            }
+                            })
+                    </script>
+
+                </div>
+                <div id="collapsed-nav-expanded">
+                    <div class="collapsed-nav-a-flexbox">
+                        <a href = "/catalog/restaurants">Restaurants</a>
+                        <a href = "">Entertainment</a>
+                        <a href = "">Events</a>
+                    </div>
+                </div>
+            </nav>
+            <hr>
+        </div>
+    </header>
+
     <div class="login-container">
         <form action="{% url 'maedweb:login_request' %}" method="post">
         {% csrf_token %}

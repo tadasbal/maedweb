@@ -10,32 +10,70 @@
 </head>
 <body id="main-body">
     <header>
-        <nav id="main-nav-container">
-            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
-            <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
-            <a href = "" class="main-nav">Entertainment</a>
-            <a href = "" class="main-nav">Events</a>
-            {% if user.is_authenticated %}
-            <div id="main-profile-container">
-                <div id="main-username">{{ user.username }}</div>
-                <div id="main-profile-button-container">
-                    <button id="main-profile-button"></button>
-                    <div id="main-profile-selection-list">
-                        <a href="">Profile</a>
-                        {% if user.groups.first.name == "Organizer" %}
-                        <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
-                        {% endif %}
-                        <a href="">Help</a>
-                        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+        <div id="expanded-nav">
+            <nav class="main-nav-container">
+                <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+                <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+                <a href = "" class="main-nav">Entertainment</a>
+                <a href = "" class="main-nav">Events</a>
+                {% if user.is_authenticated %}
+                    <div id="main-profile-container">
+                        <div id="main-username">{{ user.username }}</div>
+                        <div id="main-profile-button-container">
+                            <button class="main-profile-button" id="expanded-nav-button"></button>
+                            <div class="main-profile-selection-list" id="expanded-nav-user-menu">
+                                <a href="">Profile</a>
+                                {% if user.groups.first.name == "Organizer" %}
+                                <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                                {% endif %}
+                                <a href="">Help</a>
+                                <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+                    {% endif %}
+            </nav>
+
+            <hr>
+        </div>
+
+
+<!-- Collapsed nav -->
+
+        <div id="collapsed-nav">
+            <nav>
+                <div class="main-nav-container">
+                    <button id="collapsed-nav-button"><img src="{% static 'catalog/Figures/menu.png' %}"></button>
+
+                    <!-- Javascrpit for collapsed nav -->
+
+                    <script>
+                        document.getElementById('collapsed-nav-button').addEventListener('click',function() {
+                            var navMenu = document.getElementById('collapsed-nav-expanded');
+                            var navMenuDisplay = window.getComputedStyle(navMenu).display;
+                            if(navMenuDisplay === 'none'){
+                                navMenu.style.display = 'block';
+                            }
+                            else{
+                                navMenu.style.display = 'none';
+                            }
+                            })
+                    </script>
+
+                </div>
+                <div id="collapsed-nav-expanded">
+                    <div class="collapsed-nav-a-flexbox">
+                        <a href = "/catalog/restaurants">Restaurants</a>
+                        <a href = "">Entertainment</a>
+                        <a href = "">Events</a>
                     </div>
                 </div>
-            </div>
-            {% else %}
-            <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
-            {% endif %}
-        </nav>
-	</header>
-    <hr>
+            </nav>
+            <hr>
+        </div>
+    </header>
 
     </br>
     <a href="{% url 'maedweb:restaurants' %}" id="back-to-restaurants">
@@ -54,8 +92,8 @@
 
         <div id="reviews-container">
             <h1>Reviews</h1>
-            </br></br>
-            <div class="reviews" id="overall">
+            </br>
+            <div class="reviews">
                 <span>Overall</span>
                 <img src="{% static 'catalog/Figures/full-star.png' %}">
                 <img src="{% static 'catalog/Figures/full-star.png' %}">
@@ -63,7 +101,6 @@
                 <img src="{% static 'catalog/Figures/full-star.png' %}">
                 <img src="{% static 'catalog/Figures/full-star.png' %}">
             </div>
-            </br>
 
             <div class="reviews">
                 <span>Food</span>
@@ -136,7 +173,7 @@
         </div>
 
         <div id="reservation-menu-categories-container">
-            <a href="">Make a reservation</a>
+            <a href="">Reservation</a>
             <a href="{{ documents.menu_link }}">Menu</a>
             <div id="categories-container">
                 <h1>Categories</h1>
