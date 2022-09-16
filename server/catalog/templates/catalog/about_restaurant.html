@@ -62,6 +62,38 @@
                             })
                     </script>
 
+                    {% if user.is_authenticated %}
+                    <div id="main-profile-container">
+                        <div id="main-profile-button-container">
+                            <button class="main-profile-button" id="collapsed-nav-profile-button"></button>
+                            <div class="main-profile-selection-list" id="collapsed-nav-user-menu">
+                                <a href="">Profile</a>
+                                {% if user.groups.first.name == "Organizer" %}
+                                <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                                {% endif %}
+                                <a href="">Help</a>
+                                <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Javascrpit for user menu -->
+
+                    <script>
+                        document.getElementById('collapsed-nav-profile-button').addEventListener('click',function() {
+                            var userMenu = document.getElementById('collapsed-nav-user-menu');
+                            var userMenuDisplay = window.getComputedStyle(userMenu).display;
+                            if(userMenuDisplay === 'none'){
+                                userMenu.style.display = 'block';
+                            }
+                            else{
+                                userMenu.style.display = 'none';
+                            }
+                            })
+                    </script>
+                    {% else %}
+                    <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+                    {% endif %}
+
                 </div>
                 <div id="collapsed-nav-expanded">
                     <div class="collapsed-nav-a-flexbox">
