@@ -37,3 +37,7 @@ from django.test import TestCase
 
 
 # Create your tests here.
+
+
+test = 'tadas' + 'kietas'
+print(test)

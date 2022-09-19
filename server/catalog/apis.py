@@ -41,18 +41,20 @@ def retrieve_img(document_id, img_name):
     image = base64.decodebytes(img_data)
     return image
 
-def retrieve_all_documents():
+def retrieve_all_documents(db_name):
     client = connect_cloudant()
-    my_database = client['maed-restaurants']
+    my_database = client[db_name]
     my_documents = []
     for document in my_database:
         my_documents.append(document)
+    client.disconnect()
     return my_documents
 
-def retrieve_one_document(document_id):
+def retrieve_one_document(document_id, database):
     client = connect_cloudant()
-    my_database = client['maed-restaurants']
+    my_database = client[database]
     document = my_database[document_id]
+    client.disconnect()
     return document
 
 def create_document(url, payload):
@@ -81,14 +83,27 @@ def add_attachment(url, payload):
     print("With status {} ".format(status_code))
     return response
 
-def user_activities(user):
-    user_documents = []
-    my_documents = retrieve_all_documents()
-    for document in my_documents:
-        if document['user'] == user:
-            document['id'] = document.pop('_id')
-            user_documents.append(document)
+# def user_activities(user):
+#     user_documents = []
+#     my_documents = retrieve_all_documents('maed-restaurants')
+#     for document in my_documents:
+#         if document['user'] == user:
+#             document['id'] = document.pop('_id')
+#             user_documents.append(document)
 
+#     return user_documents
+
+def user_activities(user, database):
+    user_documents = []
+    client = connect_cloudant()
+    my_database = client[database]
+    selector = {'user': {'$eq': user}}
+    documents = my_database.get_query_result(selector)
+    for document in documents:
+        document['id'] = document.pop('_id')
+        document['database'] = database
+        user_documents.append(document)
+    client.disconnect()
     return user_documents
 
 def upload_image_s3(image, activity_name):
@@ -113,9 +128,9 @@ def delete_image_s3(image_url):
     )
     return response
 
-def add_restaurant(restaurant):
+def add_restaurant(restaurant, activity_type):
     payload = {}
-    payload['restaurant'] = {
+    payload[activity_type] = {
         "user":restaurant.user,
         "name":restaurant.name,
         "categories":restaurant.categories,
@@ -134,9 +149,10 @@ def randomword(length):
    letters = string.ascii_lowercase
    return ''.join(random.choice(letters) for i in range(length))
 
-def search(searchtxt):
+def search(searchtxt, activities):
     req_documents = []
-    my_documents = retrieve_all_documents()
+    database = 'maed-' + activities
+    my_documents = retrieve_all_documents(database)
     keywords = searchtxt.split()
     for document in my_documents:
         for category in document['categories']:
@@ -156,9 +172,10 @@ def search(searchtxt):
 # for test in req_documents:
 #     print(test['name'])
 
-def category_filter(selected_categories):
+def category_filter(selected_categories, activities):
     req_documents = []
-    documents = retrieve_all_documents()
+    database = 'maed-' + activities
+    documents = retrieve_all_documents(database)
     for document in documents:
         for category in selected_categories:
             if category in document['categories']:
@@ -168,35 +185,31 @@ def category_filter(selected_categories):
         document['id'] = document.pop('_id')
     return req_documents
 
-def update_document(restaurant, document):
+def update_document(restaurant, document_edit, database):
+    client = connect_cloudant()
+    my_database = client[database]
+    document = my_database[document_edit['_id']]
     document['name'] = restaurant.name
     document['categories'] = restaurant.categories
     document['contacts'] = restaurant.contacts
     document['details'] = restaurant.details
     document['menu_link'] = restaurant.menu_link
 
-    if hasattr(restaurant, 'image_url'):
+    if restaurant.image_url != '':
         document['image_url'] = restaurant.image_url
 
     document.save()
+    client.disconnect()
     return document
 
+def delete_document(document_id, database):
+    client = connect_cloudant()
+    my_database = client[database]
+    document = my_database[document_id]
+    document.delete()
+    client.disconnect()
+    return 'DOCUMENT SUCCESFULLY DELETED'
 
-
-
-# retrieve_one_document('2fda0fc8149289b8301f679ddea712df')
-
-# payload = {}
-#     payload['restaurant'] = {
-#         "user":restaurant.user,
-#         "name":restaurant.name,
-#         "categories":restaurant.categories,
-#         "reviews":restaurant.reviews,
-#         "contacts":restaurant.contacts,
-#         "details":restaurant.details,
-#         "menu_link":restaurant.menu_link,
-#         "image_url":restaurant.image_url
-#     }
 
 
 

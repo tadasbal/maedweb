@@ -14,8 +14,8 @@
             <nav class="main-nav-container">
                 <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
                 <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
-                <a href = "" class="main-nav">Entertainment</a>
-                <a href = "" class="main-nav">Events</a>
+                <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+                <a href = "/catalog/events" class="main-nav">Events</a>
                 {% if user.is_authenticated %}
                     <div id="main-profile-container">
                         <div id="main-username">{{ user.username }}</div>
@@ -98,8 +98,8 @@
                 <div id="collapsed-nav-expanded">
                     <div class="collapsed-nav-a-flexbox">
                         <a href = "/catalog/restaurants">Restaurants</a>
-                        <a href = "">Entertainment</a>
-                        <a href = "">Events</a>
+                        <a href = "/catalog/entertainment">Entertainment</a>
+                        <a href = "/catalog/events">Events</a>
                     </div>
                 </div>
             </nav>
@@ -110,14 +110,28 @@
     <div class="my-activities-container">
         <h1>My Activities</h1>
         {% for document in user_documents %}
+        {% if document.database == 'maed-restaurants' %}
         <button class="one-posted-activity" id="my-activities-{{ document.id }}">
             <span class="align-left">{{document.name}}</span>
             <img src="{% static 'catalog/Figures/restaurant-icon.png' %}">
             <span class="align-right">Restaurant</span>
         </button>
+        {% elif document.database == 'maed-events' %}
+        <button class="one-posted-activity" id="my-activities-{{ document.id }}">
+            <span class="align-left">{{document.name}}</span>
+            <img src="{% static 'catalog/Figures/event-icon.png' %}">
+            <span class="align-right">Event</span>
+        </button>
+        {% elif document.database == 'maed-entertainment' %}
+        <button class="one-posted-activity" id="my-activities-{{ document.id }}">
+            <span class="align-left">{{document.name}}</span>
+            <img src="{% static 'catalog/Figures/entertainment-icon.png' %}">
+            <span class="align-right">Entertainment</span>
+        </button>
+        {% endif %}
 
         <div class="my-activities-container edit-activity-container" id="edit-activity-{{ document.id }}">
-        <form method="post" action="{% url 'maedweb:edit_activity_request' username=user.username document_id=document.id %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'maedweb:edit_activity_request' username=user.username document_id=document.id database=document.database %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="new-activity-input-flex-container">
                 <div>
@@ -154,45 +168,34 @@
                 </div>
                 <fieldset>
                     <legend class="required-field">Categories (Choose up to 3)</legend>
-                    <div id="new-activity-categories">
+                    {% if document.database == 'maed-restaurants' %}
+                    <div class="activity-categories">
+                        {% for onecategory in categories.restaurant_categories %}
                         <div>
-                            <input type="checkbox" id="category-most-popular" name="categories" value="Most Popular" {% if "Most Popular" in document.categories %} checked {% endif %}>
-                            <label for="category-most-popular">Most Popular</label>
+                            <input type="checkbox" id="category-{{onecategory}}" name="categories" value="{{onecategory}}" {% if onecategory in document.categories %} checked {% endif %}>
+                            <label for="category-{{ onecategory }}">{{ onecategory }}</label>
                         </div>
-                        <div>
-                            <input type="checkbox" id="category-fast-food" name="categories" value="Fast Food" {% if "Fast Food" in document.categories %} checked {% endif %}>
-                            <label for="category-fast-food">Fast Food</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="category-italian" name="categories" value="Italian" {% if "Italian" in document.categories %} checked {% endif %}>
-                            <label for="category-italian">Italian</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="category-grill" name="categories" value="Grill" {% if "Grill" in document.categories %} checked {% endif %}>
-                            <label for="category-grill">Grill</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="category-pasta" name="categories" value="Pasta" {% if "Pasta" in document.categories %} checked {% endif %}>
-                            <label for="category-pasta">Pasta</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="category-breakfast" name="categories" value="Breakfast" {% if "Breakfast" in document.categories %} checked {% endif %}>
-                            <label for="category-breakfast">Breakfast</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="category-new" name="categories" value="New" {% if "New" in document.categories %} checked {% endif %}>
-                            <label for="category-new">New</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="category-lithuanian" name="categories" value="Lithuanian" {% if "Lithuanian" in document.categories %} checked {% endif %}>
-                            <label for="category-lithuanian">Lithuanian</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="category-meat" name="categories" value="Meat" {% if "Meat" in document.categories %} checked {% endif %}>
-                            <label for="category-meat">Meat</label>
-                        </div>
-    
+                        {% endfor %}
                     </div>
+                    {% elif document.database == 'maed-events' %}
+                    <div class="activity-categories">
+                        {% for onecategory in categories.event_categories %}
+                        <div>
+                            <input type="checkbox" id="category-{{onecategory}}" name="categories" value="{{onecategory}}" {% if onecategory in document.categories %} checked {% endif %}>
+                            <label for="category-{{ onecategory }}">{{ onecategory }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% elif document.database == 'maed-entertainment' %}
+                    <div class="activity-categories">
+                        {% for onecategory in categories.entertainment_categories %}
+                        <div>
+                            <input type="checkbox" id="category-{{onecategory}}" name="categories" value="{{onecategory}}" {% if onecategory in document.categories %} checked {% endif %}>
+                            <label for="category-{{ onecategory }}">{{ onecategory }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </fieldset>
                 <div>
                     <label for="image" id="image-label">Image</label>
@@ -228,23 +231,13 @@
             <button type="submit">Submit Changes</button>
         </form>
 
-        <form method="post" action="{% url 'maedweb:delete_activity_request' username=user.username document_id=document.id %}">
+        <form method="post" action="{% url 'maedweb:delete_activity_request' username=user.username document_id=document.id database=document.database %}">
             {% csrf_token %}
             <button class="delete-activity-button" type="submit">Delete Activity</button>
         </form>
 
         </div>
         {% endfor %}
-        <button class="one-posted-activity">
-            <span class="align-left">Swimming Pool</span>
-            <img src="{% static 'catalog/Figures/entertainment-icon.png' %}">
-            <span class="align-right">Entertainment</span>
-        </button>
-        <button class="one-posted-activity">
-            <span class="align-left">BestFestival</span>
-            <img src="{% static 'catalog/Figures/event-icon.png' %}">
-            <span class="align-right">Event</span>
-        </button>
     </div>
 
     <button id="post-new-activity-button">Post a new activity</button>
@@ -269,15 +262,15 @@
             <legend class="required-field">Select activity type:</legend>
             <ul>
             <li>
-                <input type="radio" id="new-activity-restaurant" name="new-activity-type" value="restaurant" checked="checked">
+                <input type="radio" id="new-activity-restaurant" name="new-activity-type" value="restaurant" onchange="getNewActivityValue(this.value)" checked="checked">
                 <label for="new-activity-restaurant">Restaurant</label>
             </li>
             <li>
-                <input type="radio" id="new-activity-entertainment" name="new-activity-type" value="entertainment">
+                <input type="radio" id="new-activity-entertainment" name="new-activity-type" value="entertainment" onchange="getNewActivityValue(this.value)">
                 <label for="new-activity-entertainment">Entertainment</label>
             </li>
             <li>
-                <input type="radio" id="new-activity-event" name="new-activity-type" value="event">
+                <input type="radio" id="new-activity-event" name="new-activity-type" value="event" onchange="getNewActivityValue(this.value)">
                 <label for="new-activity-event">Event</label>
             </li>
             </ul>
@@ -318,46 +311,37 @@
             </div>
             <fieldset>
                 <legend class="required-field">Categories (Choose up to 3)</legend>
-                <div id="new-activity-categories">
-                    <div>
-                        <input type="checkbox" id="category-most-popular" name="categories" value="Most Popular">
-                        <label for="category-most-popular">Most Popular</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-fast-food" name="categories" value="Fast Food">
-                        <label for="category-fast-food">Fast Food</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-italian" name="categories" value="Italian">
-                        <label for="category-italian">Italian</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-grill" name="categories" value="Grill">
-                        <label for="category-grill">Grill</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-pasta" name="categories" value="Pasta">
-                        <label for="category-pasta">Pasta</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-breakfast" name="categories" value="Breakfast">
-                        <label for="category-breakfast">Breakfast</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-new" name="categories" value="New">
-                        <label for="category-new">New</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-lithuanian" name="categories" value="Lithuanian">
-                        <label for="category-lithuanian">Lithuanian</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="category-meat" name="categories" value="Meat">
-                        <label for="category-meat">Meat</label>
-                    </div>
-
-                </div>
+                <div class="activity-categories" id="new-activity-categories"></div>
             </fieldset>
+
+            <script>
+                function getNewActivityValue(type){
+                var restaurantCategories = {{ categories.restaurant_categories|safe }}
+                var entertainmentCategories = {{ categories.entertainment_categories|safe }}
+                var eventCategories = {{ categories.event_categories|safe }}
+
+                if(type === 'restaurant'){
+                    var activityType = restaurantCategories
+                }
+                else if(type === 'entertainment'){
+                    var activityType = entertainmentCategories
+                }
+                else if(type === 'event'){
+                    var activityType = eventCategories
+                }
+        
+                document.getElementById("new-activity-categories").innerHTML = ""
+        
+                for(j = 0; j < activityType.length; j++){
+                    document.getElementById("new-activity-categories").innerHTML +=  "<div>" +
+                        "<input type='checkbox' id='category-" + activityType[j] + "' name='categories' value='" + activityType[j] + "'>" +
+                        "<label for='category-" + activityType[j] + "'>" + activityType[j] + "</label></div>"
+                }
+                }
+    
+                getNewActivityValue("restaurant")
+            </script>
+
             <div>
                 <label for="image" class="required-field" id="image-label">Image</label>
                 <span class="input-image-wrap">

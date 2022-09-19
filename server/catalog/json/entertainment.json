@@ -1,0 +1,26 @@
+{
+    "entertainment":{
+        "user":"testuser",
+        "name":"SwimLikeFish",
+        "categories":["Most Popular", "New", "Swimming", "Bowling", "Outdoors", "Indoors", "Sports", "Active", "Cinema"],
+        "reviews":{
+            "Overall":4,
+            "Fun":4,
+            "Price":5,
+            "Service":3,
+            "Place":4
+        },
+        "contacts":{
+            "address":"Pašilaičių g. 7, Vilnius",
+            "phone":"+37068250572",
+            "email":"something@gmail.com",
+            "website":"www.something.com"
+        },
+        "details":{
+            "about":"Best swimming pool in Lithuania. If you want to plan an active day or just chill in the sauna, you will find what to do here!",
+            "features":"Wifi, Cool Staff, Beautiful Interior, Seating, Highchairs Available, Wheelchair Accessible, Free Wifi, Street Parking, Free off-street parking, Family style, Gift Cards Available"
+        },
+        "menu_link":"www.something.com",
+        "image_url":"www.something.com"
+        }
+    }

@@ -16,8 +16,8 @@
         <div id="expanded-nav">
         <nav class="main-nav-container">
                     <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
-                    <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
-                    <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+                    <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+                    <a href = "/catalog/entertainment" class="main-nav active">Entertainment</a>
                     <a href = "/catalog/events" class="main-nav">Events</a>
                     {% if user.is_authenticated %}
                     <div id="main-profile-container">
@@ -43,7 +43,7 @@
         
 
         <!-- Search -->
-        <form action="{% url 'maedweb:search_request' activities='restaurants' %}" method="post">
+        <form action="{% url 'maedweb:search_request' activities='entertainment' %}" method="post">
         {% csrf_token %}
             <div class="search-form">
                 <input class="search-input" type="text" placeholder="Search:" name="search">
@@ -52,9 +52,9 @@
         </form>
         
         <!-- Filter -->
-        <form action="{% url 'maedweb:filter_request' activities='restaurants' %}" method="post" class="filter-container">
+        <form action="{% url 'maedweb:filter_request' activities='entertainment' %}" method="post" class="filter-container">
         {% csrf_token %}
-        {% for category in restaurant_categories %}
+        {% for category in entertainment_categories %}
             <div class="one-checkbox-container">
                 <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{category}}">
                 <label for="checkbox-{{category}}">{{category}}</label>
@@ -122,13 +122,13 @@
                 </div>
                 <div id="collapsed-nav-expanded">
                     <div class="collapsed-nav-a-flexbox">
-                        <a href = "/catalog/restaurants" class="active">Restaurants</a>
-                        <a href = "/catalog/entertainment">Entertainment</a>
+                        <a href = "/catalog/restaurants">Restaurants</a>
+                        <a href = "/catalog/entertainment" class="active">Entertainment</a>
                         <a href = "/catalog/events">Events</a>
                     </div>
 
                     <!-- Search -->
-                    <form action="{% url 'maedweb:search_request' activities='restaurants' %}" method="post">
+                    <form action="{% url 'maedweb:search_request' activities='entertainment' %}" method="post">
                         {% csrf_token %}
                         <div class="search-form" id="search-form-collapsed-nav">
                             <input class="search-input" type="text" placeholder="Search:" name="search">
@@ -137,9 +137,9 @@
                     </form>
 
                     <!-- Filter -->
-                    <form action="{% url 'maedweb:filter_request' activities='restaurants' %}" method="post" class="filter-container" id="filter-container-collapsed-nav">
+                    <form action="{% url 'maedweb:filter_request' activities='entertainment' %}" method="post" class="filter-container" id="filter-container-collapsed-nav">
                         {% csrf_token %}
-                        {% for category in restaurant_categories %}
+                        {% for category in entertainment_categories %}
                         <div class="one-checkbox-container">
                             <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{ category }}">
                             <label for="checkbox-{{category}}">{{ category }}</label>
@@ -172,7 +172,7 @@
         {% for document in my_documents %}
         {% if "Most Popular" in document.categories %}
         <div class="swiper-slide">
-            <a href="{% url 'maedweb:about_activity' activities='restaurants' document_id=document.id %}">
+            <a href="{% url 'maedweb:about_activity' activities='entertainment' document_id=document.id %}">
                 <img src="{{ document.image_url }}">
                 <p>{{ document.name }}</p>
             </a>
@@ -194,13 +194,13 @@
         <img src="{% static 'catalog/Figures/arrow-right.png' %}" class="arrow-right">
     </button>
     <div class="gallery-category">
-        <p>Fast Food:</p>
+        <p>Active:</p>
     </div>
     <div class="swiper-wrapper">
         {% for document in my_documents %}
-        {% if "Fast Food" in document.categories %}
+        {% if "Active" in document.categories %}
         <div class="swiper-slide">
-            <a href="{% url 'maedweb:about_activity' activities='restaurants' document_id=document.id %}">
+            <a href="{% url 'maedweb:about_activity' activities='entertainment' document_id=document.id %}">
                 <img src="{{ document.image_url }}">
                 <p>{{ document.name }}</p>
             </a>
@@ -222,13 +222,13 @@
         <img src="{% static 'catalog/Figures/arrow-right.png' %}" class="arrow-right">
     </button>
     <div class="gallery-category">
-        <p>Italian:</p>
+        <p>Outdoors:</p>
     </div>
     <div class="swiper-wrapper">
         {% for document in my_documents %}
-        {% if "Italian" in document.categories %}
+        {% if "Outdoors" in document.categories %}
         <div class="swiper-slide">
-            <a href="{% url 'maedweb:about_activity' activities='restaurants' document_id=document.id %}">
+            <a href="{% url 'maedweb:about_activity' activities='entertainment' document_id=document.id %}">
                 <img src="{{ document.image_url }}">
                 <p>{{ document.name }}</p>
             </a>
@@ -250,13 +250,13 @@
         <img src="{% static 'catalog/Figures/arrow-right.png' %}" class="arrow-right">
     </button>
     <div class="gallery-category">
-        <p>Meat:</p>
+        <p>Indoors:</p>
     </div>
     <div class="swiper-wrapper">
         {% for document in my_documents %}
-        {% if "Meat" in document.categories %}
+        {% if "Indoors" in document.categories %}
         <div class="swiper-slide">
-            <a href="{% url 'maedweb:about_activity' activities='restaurants' document_id=document.id %}">
+            <a href="{% url 'maedweb:about_activity' activities='entertainment' document_id=document.id %}">
                 <img src="{{ document.image_url }}">
                 <p>{{ document.name }}</p>
             </a>

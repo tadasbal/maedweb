@@ -14,8 +14,8 @@
             <nav class="main-nav-container">
                 <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
                 <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
-                <a href = "" class="main-nav">Entertainment</a>
-                <a href = "" class="main-nav">Events</a>
+                <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+                <a href = "/catalog/events" class="main-nav">Events</a>
             </nav>
 
             <hr>
@@ -48,8 +48,8 @@
                 <div id="collapsed-nav-expanded">
                     <div class="collapsed-nav-a-flexbox">
                         <a href = "/catalog/restaurants">Restaurants</a>
-                        <a href = "">Entertainment</a>
-                        <a href = "">Events</a>
+                        <a href = "/catalog/entertainment">Entertainment</a>
+                        <a href = "/catalog/events">Events</a>
                     </div>
                 </div>
             </nav>
@@ -66,13 +66,13 @@
                     <input type="radio" id="login-as-user" name="login-account-type" value="user" checked="checked">
                     <label for="login-as-user" id="login-as-user-label"><span>User</span></label>
                     <div class="login-type-info-button">?</div>
-                    <div class="login-type-info">If you want to search and register for entertainment, choose this type</div>
+                    <div class="login-type-info">If you want to search and register for activities, choose this type</div>
                 </div>
                 <div class="login-choose-type">
                     <input type="radio" id="login-as-organizer" name="login-account-type" value="organizer">
                     <label for="login-as-organizer" id="login-as-organizer-label"><span>Organizer</span></label>
                     <div class="login-type-info-button">?</div>
-                    <div class="login-type-info">If you want to post your entertainment, choose this type</div>
+                    <div class="login-type-info">If you want to post your activities, choose this type</div>
                 </div>
             </fieldset>
             {% if message %}

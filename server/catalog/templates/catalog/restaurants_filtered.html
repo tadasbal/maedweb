@@ -13,9 +13,19 @@
         <div id="expanded-nav">
         <nav class="main-nav-container">
                     <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+                    {% if activities == 'restaurants' %}
                     <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
-                    <a href = "" class="main-nav">Entertainment</a>
-                    <a href = "" class="main-nav">Events</a>
+                    <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+                    <a href = "/catalog/events" class="main-nav">Events</a>
+                    {% elif activities == 'entertainment' %}
+                    <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+                    <a href = "/catalog/entertainment" class="main-nav active">Entertainment</a>
+                    <a href = "/catalog/events" class="main-nav">Events</a>
+                    {% elif activities == 'events' %}
+                    <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+                    <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+                    <a href = "/catalog/events" class="main-nav active">Events</a>
+                    {% endif %}
                     {% if user.is_authenticated %}
                     <div id="main-profile-container">
                         <div id="main-username">{{ user.username }}</div>
@@ -40,7 +50,7 @@
         
 
         <!-- Search -->
-        <form action="{% url 'maedweb:search_request' %}" method="post">
+        <form action="{% url 'maedweb:search_request' activities=activities %}" method="post">
         {% csrf_token %}
             <div class="search-form">
                 <input class="search-input" type="text" placeholder="Search:" name="search">
@@ -49,44 +59,30 @@
         </form>
         
         <!-- Filter -->
-        <form action="{% url 'maedweb:filter_request' %}" method="post" class="filter-container">
+        <form action="{% url 'maedweb:filter_request' activities=activities %}" method="post" class="filter-container">
         {% csrf_token %}
+        {% if activities == 'restaurants' %}
+        {% for category in categories.restaurant_categories %}
             <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="first_checkbox" value="Most Popular">
-                <label for="first_checkbox">Most Popular</label>
+                <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{category}}">
+                <label for="checkbox-{{category}}">{{category}}</label>
             </div>
+        {% endfor %}
+        {% elif activities == 'entertainment' %}
+        {% for category in categories.entertainment_categories %}
             <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="second_checkbox" value="Fast Food">
-                <label for="second_checkbox">Fast Food</label>
+                <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{category}}">
+                <label for="checkbox-{{category}}">{{category}}</label>
             </div>
+        {% endfor %}
+        {% elif activities == 'events' %}
+        {% for category in categories.event_categories %}
             <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="third_checkbox" value="Italian">
-                <label for="third_checkbox">Italian</label>
+                <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{category}}">
+                <label for="checkbox-{{category}}">{{category}}</label>
             </div>
-            <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="fourth_checkbox" value="Grill">
-                <label for="fourth_checkbox">Grill</label>
-            </div>
-            <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="fifth_checkbox" value="Pasta">
-                <label for="fifth_checkbox">Pasta</label>
-            </div>
-            <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="sixth_checkbox" value="Breakfast">
-                <label for="sixth_checkbox">Breakfast</label>
-            </div>
-            <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="seventh_checkbox" value="New">
-                <label for="seventh_checkbox">New</label>
-            </div>
-            <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="eigth_checkbox" value="Lithuanian">
-                <label for="eigth_checkbox">Lithuanian</label>
-            </div>
-            <div class="one-checkbox-container">
-                <input type="checkbox" class="checkbox" name="filter_checkbox" id="ninth_checkbox" value="Meat">
-                <label for="ninth_checkbox">Meat</label>
-            </div>
+        {% endfor %}
+        {% endif %}
             <button class="filter-button" type="submit">Apply Filter</button>
         </form>
 
@@ -149,13 +145,23 @@
                 </div>
                 <div id="collapsed-nav-expanded">
                     <div class="collapsed-nav-a-flexbox">
+                        {% if activities == 'restaurants' %}
                         <a href = "/catalog/restaurants" class="active">Restaurants</a>
-                        <a href = "">Entertainment</a>
-                        <a href = "">Events</a>
+                        <a href = "/catalog/entertainment">Entertainment</a>
+                        <a href = "/catalog/events">Events</a>
+                        {% elif activities == 'entertainment' %}
+                        <a href = "/catalog/restaurants">Restaurants</a>
+                        <a href = "/catalog/entertainment" class="active">Entertainment</a>
+                        <a href = "/catalog/events">Events</a>
+                        {% elif activities == 'events' %}
+                        <a href = "/catalog/restaurants">Restaurants</a>
+                        <a href = "/catalog/entertainment">Entertainment</a>
+                        <a href = "/catalog/events" class="active">Events</a>
+                        {% endif %}
                     </div>
 
                     <!-- Search -->
-                    <form action="{% url 'maedweb:search_request' %}" method="post">
+                    <form action="{% url 'maedweb:search_request' activities=activities %}" method="post">
                         {% csrf_token %}
                         <div class="search-form" id="search-form-collapsed-nav">
                             <input class="search-input" type="text" placeholder="Search:" name="search">
@@ -164,44 +170,30 @@
                     </form>
 
                     <!-- Filter -->
-                    <form action="{% url 'maedweb:filter_request' %}" method="post" class="filter-container" id="filter-container-collapsed-nav">
+                    <form action="{% url 'maedweb:filter_request' activities=activities %}" method="post" class="filter-container" id="filter-container-collapsed-nav">
                         {% csrf_token %}
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="first_checkbox" value="Most Popular">
-                            <label for="first_checkbox">Most Popular</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="second_checkbox" value="Fast Food">
-                            <label for="second_checkbox">Fast Food</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="third_checkbox" value="Italian">
-                            <label for="third_checkbox">Italian</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="fourth_checkbox" value="Grill">
-                            <label for="fourth_checkbox">Grill</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="fifth_checkbox" value="Pasta">
-                            <label for="fifth_checkbox">Pasta</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="sixth_checkbox" value="Breakfast">
-                            <label for="sixth_checkbox">Breakfast</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="seventh_checkbox" value="New">
-                            <label for="seventh_checkbox">New</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="eigth_checkbox" value="Lithuanian">
-                            <label for="eigth_checkbox">Lithuanian</label>
-                        </div>
-                        <div class="one-checkbox-container">
-                            <input type="checkbox" class="checkbox" name="filter_checkbox" id="ninth_checkbox" value="Meat">
-                            <label for="ninth_checkbox">Meat</label>
-                        </div>
+                        {% if activities == 'restaurants' %}
+                        {% for category in categories.restaurant_categories %}
+                            <div class="one-checkbox-container">
+                                <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{category}}">
+                                <label for="checkbox-{{category}}">{{category}}</label>
+                            </div>
+                        {% endfor %}
+                        {% elif activities == 'entertainment' %}
+                        {% for category in categories.entertainment_categories %}
+                            <div class="one-checkbox-container">
+                                <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{category}}">
+                                <label for="checkbox-{{category}}">{{category}}</label>
+                            </div>
+                        {% endfor %}
+                        {% elif activities == 'events' %}
+                        {% for category in categories.event_categories %}
+                            <div class="one-checkbox-container">
+                                <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{category}}">
+                                <label for="checkbox-{{category}}">{{category}}</label>
+                            </div>
+                        {% endfor %}
+                        {% endif %}
                         <button class="filter-button" type="submit">Apply Filter</button>
                     </form>
                 </div>
@@ -218,7 +210,7 @@
 
     {% for document in req_documents %}
     <div class="filtered-gallery-slide">
-        <a href="{% url 'maedweb:about_restaurant' document_id=document.id %}">
+        <a href="{% url 'maedweb:about_activity' activities=activities document_id=document.id %}">
             <img src="{{ document.image_url }}">
             <p>{{ document.name }}</p>
         </a>
