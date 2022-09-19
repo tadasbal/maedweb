@@ -720,6 +720,8 @@ hr{
     width: 23px;
     height: 23px;
     border-radius: 50%;
+    left: 85%;
+    bottom:27px;
 
     font-family: 'Arial';
     font-size: 16px;
@@ -728,31 +730,17 @@ hr{
     color: #EC2A00;
 }
 
-.login-type-info-button, .register-type-info-button{
-    left: 85%;
-    bottom:27px;
-}
-
 .login-type-info, .register-type-info{
     position: relative;
     z-index: 5;
     height: fit-content;
     background-color: #EC2A00;
     display: none;
+    top:-23px;
+    width: 102%;
 
     font-size: 13px;
     text-align: center;
-}
-
-.login-type-info{
-    top:-23px;
-    width: 102%;
-}
-
-.register-type-info{
-    top:115px;
-    width: 183px;
-    right: 20px;
 }
 
 .login-type-info-button:hover + .login-type-info{
