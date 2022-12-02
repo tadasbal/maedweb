@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+
+<div id="expanded-nav">
+    {% include "./components/nav.html" with include_filters="yes" activities=activities %}
+</div>
+
+<div id="collapsed-nav">
+    <nav>
+        {% include "./components/mobile-nav.html" with include_filters="yes" activities=activities %}
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block content%}
+
+<!-- Swipers -->
+{% for category in displayed_categories %}
+    {% include "./components/swiper.html" with activities=activities category=category %}
+{% endfor %}
+
+<!-- Initialize Swiper -->
+<script src="{% static 'catalog/swiper.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+
+<div id="expanded-nav">
+    {% include "./components/nav.html"%}
+</div>
+
+<div id="collapsed-nav">
+    <nav>
+        {% include "./components/mobile-nav.html"%}
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block content%}
+
+    {% if activities == 'restaurants' %}
+    <a href="{% url 'maedweb:restaurants' %}" id="back-to-restaurants">
+        <img src="{% static 'catalog/Figures/bi_arrow-left.png' %}">
+        <span>Back to choosing {{activities}}</span>
+    </a>
+    {% elif activities == 'entertainment' %}
+    <a href="{% url 'maedweb:entertainment' %}" id="back-to-restaurants">
+        <img src="{% static 'catalog/Figures/bi_arrow-left.png' %}">
+        <span>Back to choosing {{activities}}</span>
+    </a>
+    {% elif activities == 'events' %}
+    <a href="{% url 'maedweb:events' %}" id="back-to-restaurants">
+        <img src="{% static 'catalog/Figures/bi_arrow-left.png' %}">
+        <span>Back to choosing {{activities}}</span>
+    </a>
+    {% endif %}
+
+
+    <div id="about-page-container">
+
+        <div id="restaurant-image-wrapper">
+            <img src="{{ document.image_url }}">
+            <div>
+                {{document.name}}
+            </div>
+        </div>
+
+        <div id="reviews-container">
+            <h1>Reviews</h1>
+            </br>
+            {% for review in document.reviews %}
+            <div class="reviews">
+                <span>{{review}}</span>
+                {% for i in 3|get_range %}
+                <img src="{% static 'catalog/Figures/full-star.png' %}">
+                {% endfor %}
+                {% for i in 2|get_range %}
+                <img src="{% static 'catalog/Figures/empty-star.png' %}">
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div id="contacts-container">
+            <h1>Contacts</h1>
+            </br></br>
+            
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/building.png' %}">
+                <span>{{ document.contacts.address }}</span>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/phone.png' %}">
+                <span>{{ document.contacts.phone }}</span>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/web.png' %}">
+                <a href="{{ document.contacts.website }}">Website</a>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/arrow-distance.png' %}">
+                <span>Unknown</span>
+            </div>
+
+            <div class="onecontact-wrapper">
+                <img src="{% static 'catalog/Figures/email.png' %}">
+                <a href="{{ document.contacts.email }}">{{ document.contacts.email }}</a>
+            </div>
+
+            <img class="maps-photo" src="{% static 'catalog/Images/maps.jpg' %}">
+
+        </div>
+
+        <div id="reservation-menu-categories-container">
+            <a href="">Reservation</a>
+            <a href="{{ documents.menu_link }}">Menu</a>
+            <div id="categories-container">
+                <h1>Categories</h1>
+                </br>
+                {% for category in document.categories %}
+                <div>{{category}}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="details-container">
+            <h1>Details</h1>
+            </br>
+            </br>
+            <h2>About</h2>
+            </br>
+            <p>{{document.details.about}}</p>
+            </br>
+            <h2>Features</h2>
+            </br>
+            <p>{{document.details.features}}</p>
+        </div>
+    </div>
+{% endblock %}

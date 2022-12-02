@@ -1,0 +1,30 @@
+<!-- Search -->
+<form action="{% url 'maedweb:search_request' activities=activities %}" method="post">
+    {% csrf_token %}
+    <!-- If is used to determine whether search component is used for mobile device display -->
+    {% if mobile == "yes" %}
+    <div class="search-form" id="search-form-collapsed-nav">
+    {% else %}
+    <div class="search-form" id="search-form">
+    {% endif %}
+        <input class="search-input" type="text" placeholder="Search:" name="search">
+        <button class="search-button" type="submit"></button>
+    </div>
+</form>
+
+<!-- Filter -->
+<!-- If is used to determine whether filter component is used for mobile device display -->
+{% if mobile == "yes" %}
+<form action="{% url 'maedweb:filter_request' activities=activities %}" method="post" class="filter-container" id="filter-container-collapsed-nav">
+{% else %}
+<form action="{% url 'maedweb:filter_request' activities=activities %}" method="post" class="filter-container" id="filter-container">
+{% endif %}
+    {% csrf_token %}
+    {% for category in categories %}
+    <div class="one-checkbox-container">
+        <input type="checkbox" class="checkbox" name="filter_checkbox" id="checkbox-{{category}}" value="{{ category }}">
+        <label for="checkbox-{{category}}">{{ category }}</label>
+    </div>
+    {% endfor %}
+    <button class="filter-button" type="submit">Apply Filter</button>
+</form>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="login-body">
+    <header>
+        <div id="expanded-nav">
+            <nav class="main-nav-container">
+                <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+                <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+                <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+                <a href = "/catalog/events" class="main-nav">Events</a>
+            </nav>
+
+            <hr>
+        </div>
+
+
+<!-- Collapsed nav -->
+
+        <div id="collapsed-nav">
+            <nav>
+                <div class="main-nav-container">
+                    <button id="collapsed-nav-button"><img src="{% static 'catalog/Figures/menu.png' %}"></button>
+
+                    <!-- Javascrpit for collapsed nav -->
+
+                    <script>
+                        document.getElementById('collapsed-nav-button').addEventListener('click',function() {
+                            var navMenu = document.getElementById('collapsed-nav-expanded');
+                            var navMenuDisplay = window.getComputedStyle(navMenu).display;
+                            if(navMenuDisplay === 'none'){
+                                navMenu.style.display = 'block';
+                            }
+                            else{
+                                navMenu.style.display = 'none';
+                            }
+                            })
+                    </script>
+
+                </div>
+                <div id="collapsed-nav-expanded">
+                    <div class="collapsed-nav-a-flexbox">
+                        <a href = "/catalog/restaurants">Restaurants</a>
+                        <a href = "/catalog/entertainment">Entertainment</a>
+                        <a href = "/catalog/events">Events</a>
+                    </div>
+                </div>
+            </nav>
+            <hr>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <form action="{% url 'maedweb:registration' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend class="login-account-type-legend">Choose account type:</legend>
+                <div class="register-choose-type">
+                    <input type="radio" id="register-as-user" name="register-account-type" value="User" checked="checked">
+                    <label for="register-as-user" id="register-as-user-label"><span>User</span></label>
+                    <div class="register-type-info-button">?</div>
+                    <div class="register-type-info">If you want to search and register for activities, choose this type</div>
+                </div>
+                <div class="register-choose-type">
+                    <input type="radio" id="register-as-organizer" name="register-account-type" value="Organizer">
+                    <label for="register-as-organizer" id="register-as-organizer-label"><span>Organizer</span></label>
+                    <div class="register-type-info-button">?</div>
+                    <div class="register-type-info">If you want to post your activities, choose this type</div>
+                </div>
+            </fieldset>
+            {% if message %}
+            <div id="register-alert">
+            {{ message }}
+            </div>
+            {% endif %}
+            <fieldset class="login-password-fieldset">
+                <label for="register-username">Username</label>
+                <input id="register-username" type="text" name="register-username">
+                <label for="register-email">Email</label>
+                <input id="register-email" type="email" name="register-email">
+                <label for="register-name">Full name / Company name</label>
+                <input id="register-name" type="text" name="register-name">
+                <label for="register-password">Password</label>
+                <input id="register-password" type="password" name="register-password">
+            </fieldset>
+
+            <button id="register-button" type="submit">Register</button>
+        </form>
+        <span id="already-have-an-account">Already have an account? <a href="/catalog/login">Login</a></span>
+    </div>
+
+
+</body>
+</html>

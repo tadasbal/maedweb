@@ -18,9 +18,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.conf import settings
+# from django.conf.urls import handler404, handler500
+# from catalog import views as catalog_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
     path('', RedirectView.as_view(url='catalog/', permanent=True)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# handler404 = catalog_views.error_404
+# handler500 = catalog_views.error_500

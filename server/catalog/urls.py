@@ -6,7 +6,6 @@ from . import views
 app_name = 'maedweb'
 urlpatterns = [
     path('', view=views.index, name='index'),
-    path('restaurants/image/<str:document_id>/<str:image_name>', view=views.show_image, name='showimage'),
     path('login', view=views.login_page, name='login'),
     path('register', view=views.register_page, name='register'),
     path('restaurants', view=views.restaurants, name='restaurants'),

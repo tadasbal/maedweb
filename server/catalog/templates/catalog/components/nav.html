@@ -1,0 +1,45 @@
+{% load static %}
+
+
+<nav class="main-nav-container">
+            <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+            {% if activities == "restaurants" %}
+            <a href = "/catalog/restaurants" class="main-nav active">Restaurants</a>
+            {% else %}
+            <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+            {% endif %}
+
+            {% if activities == "entertainment" %}
+            <a href = "/catalog/entertainment" class="main-nav active">Entertainment</a>
+            {% else %}
+            <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+            {% endif %}
+
+            {% if activities == "events" %}
+            <a href = "/catalog/events" class="main-nav active">Events</a>
+            {% else %}
+            <a href = "/catalog/events" class="main-nav">Events</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <div id="main-profile-container">
+                <div id="main-username">{{ user.username }}</div>
+                <div id="main-profile-button-container">
+                    <button class="main-profile-button" id="expanded-nav-button"></button>
+                    <div class="main-profile-selection-list" id="expanded-nav-user-menu">
+                        {% if user.groups.first.name == "Organizer" %}
+                        <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                        {% endif %}
+                        <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+            {% endif %}
+    </nav>
+
+{% if include_filters == "yes" %}
+    <hr>
+    {% include "./search-filters.html" with mobile="no" activities=activities %}
+{% endif %}

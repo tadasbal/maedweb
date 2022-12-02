@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAED</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body id="main-body">
+    <header>
+        <div id="expanded-nav">
+            <nav class="main-nav-container">
+                <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
+                <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
+                <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
+                <a href = "/catalog/events" class="main-nav">Events</a>
+                {% if user.is_authenticated %}
+                    <div id="main-profile-container">
+                        <div id="main-username">{{ user.username }}</div>
+                        <div id="main-profile-button-container">
+                            <button class="main-profile-button" id="expanded-nav-button"></button>
+                            <div class="main-profile-selection-list" id="expanded-nav-user-menu">
+                                <a href="">Profile</a>
+                                {% if user.groups.first.name == "Organizer" %}
+                                <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                                {% endif %}
+                                <a href="">Help</a>
+                                <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+                    {% endif %}
+            </nav>
+
+            <hr>
+        </div>
+
+
+<!-- Collapsed nav -->
+
+        <div id="collapsed-nav">
+            <nav>
+                <div class="main-nav-container">
+                    <button id="collapsed-nav-button"><img src="{% static 'catalog/Figures/menu.png' %}"></button>
+
+                    <!-- Javascrpit for collapsed nav -->
+
+                    <script>
+                        document.getElementById('collapsed-nav-button').addEventListener('click',function() {
+                            var navMenu = document.getElementById('collapsed-nav-expanded');
+                            var navMenuDisplay = window.getComputedStyle(navMenu).display;
+                            if(navMenuDisplay === 'none'){
+                                navMenu.style.display = 'block';
+                            }
+                            else{
+                                navMenu.style.display = 'none';
+                            }
+                            })
+                    </script>
+
+                    {% if user.is_authenticated %}
+                    <div id="main-profile-container">
+                        <div id="main-profile-button-container">
+                            <button class="main-profile-button" id="collapsed-nav-profile-button"></button>
+                            <div class="main-profile-selection-list" id="collapsed-nav-user-menu">
+                                <a href="">Profile</a>
+                                {% if user.groups.first.name == "Organizer" %}
+                                <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
+                                {% endif %}
+                                <a href="">Help</a>
+                                <a href="{% url 'maedweb:logout' %}">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Javascrpit for user menu -->
+
+                    <script>
+                        document.getElementById('collapsed-nav-profile-button').addEventListener('click',function() {
+                            var userMenu = document.getElementById('collapsed-nav-user-menu');
+                            var userMenuDisplay = window.getComputedStyle(userMenu).display;
+                            if(userMenuDisplay === 'none'){
+                                userMenu.style.display = 'block';
+                            }
+                            else{
+                                userMenu.style.display = 'none';
+                            }
+                            })
+                    </script>
+                    {% else %}
+                    <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
+                    {% endif %}
+
+                </div>
+                <div id="collapsed-nav-expanded">
+                    <div class="collapsed-nav-a-flexbox">
+                        <a href = "/catalog/restaurants">Restaurants</a>
+                        <a href = "/catalog/entertainment">Entertainment</a>
+                        <a href = "/catalog/events">Events</a>
+                    </div>
+                </div>
+            </nav>
+            <hr>
+        </div>
+    </header>
+
+    <div class="my-activities-container">
+        <h1>My Activities</h1>
+        {% for document in user_documents %}
+        {% if document.database == 'maed-restaurants' %}
+        <button class="one-posted-activity" id="my-activities-{{ document.id }}">
+            <span class="align-left">{{document.name}}</span>
+            <img src="{% static 'catalog/Figures/restaurant-icon.png' %}">
+            <span class="align-right">Restaurant</span>
+        </button>
+        {% elif document.database == 'maed-events' %}
+        <button class="one-posted-activity" id="my-activities-{{ document.id }}">
+            <span class="align-left">{{document.name}}</span>
+            <img src="{% static 'catalog/Figures/event-icon.png' %}">
+            <span class="align-right">Event</span>
+        </button>
+        {% elif document.database == 'maed-entertainment' %}
+        <button class="one-posted-activity" id="my-activities-{{ document.id }}">
+            <span class="align-left">{{document.name}}</span>
+            <img src="{% static 'catalog/Figures/entertainment-icon.png' %}">
+            <span class="align-right">Entertainment</span>
+        </button>
+        {% endif %}
+
+        <div class="my-activities-container edit-activity-container" id="edit-activity-{{ document.id }}">
+        <form method="post" action="{% url 'maedweb:edit_activity_request' username=user.username document_id=document.id database=document.database %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="new-activity-input-flex-container">
+                <div>
+                    <label for="company-name">Company name</label>
+                    <input id="company-name" type="text" name="company-name" value="{{ document.name }}">
+                </div>
+                <div>
+                    <label for="address">Address</label>
+                    <input id="address" type="text" name="address" value="{{ document.contacts.address }}">
+                </div>
+                <div>
+                    <label for="phone">Phone</label>
+                    <input id="phone" type="text" name="phone" value="{{ document.contacts.phone }}">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" value="{{ document.contacts.email }}">
+                </div>
+                <div>
+                    <label for="website">Website</label>
+                    <input id="website" type="url" name="website" value="{{ document.contacts.website }}">
+                </div>
+                <div>
+                    <label for="menu-link">Menu link</label>
+                    <input id="menu-link" type="url" name="menu-link" value="{{ document.menu_link }}">
+                </div>
+                <div>
+                    <label for="about-activity">About activity</label>
+                    <textarea id="about-activity" type="text" name="about-activity">{{ document.details.about }}</textarea>
+                </div>
+                <div>
+                    <label for="features">Features</label>
+                    <textarea id="features" type="text" name="features">{{ document.details.features }}</textarea>
+                </div>
+                <fieldset>
+                    <legend class="required-field">Categories (Choose up to 3)</legend>
+                    {% if document.database == 'maed-restaurants' %}
+                    <div class="activity-categories">
+                        {% for onecategory in categories.restaurant_categories %}
+                        <div>
+                            <input type="checkbox" id="category-{{onecategory}}" name="categories" value="{{onecategory}}" {% if onecategory in document.categories %} checked {% endif %}>
+                            <label for="category-{{ onecategory }}">{{ onecategory }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% elif document.database == 'maed-events' %}
+                    <div class="activity-categories">
+                        {% for onecategory in categories.event_categories %}
+                        <div>
+                            <input type="checkbox" id="category-{{onecategory}}" name="categories" value="{{onecategory}}" {% if onecategory in document.categories %} checked {% endif %}>
+                            <label for="category-{{ onecategory }}">{{ onecategory }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% elif document.database == 'maed-entertainment' %}
+                    <div class="activity-categories">
+                        {% for onecategory in categories.entertainment_categories %}
+                        <div>
+                            <input type="checkbox" id="category-{{onecategory}}" name="categories" value="{{onecategory}}" {% if onecategory in document.categories %} checked {% endif %}>
+                            <label for="category-{{ onecategory }}">{{ onecategory }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </fieldset>
+                <div>
+                    <label for="image" id="image-label">Image</label>
+                    <img class="edit-image" src="{{document.image_url}}">
+                    <span class="input-image-wrap">
+                        Change Image
+                        <input type="file" id="image-{{ document.id }}" name="image" accept="image/png, image/jpeg">
+                    </span>
+                    <span class="image-name" id="image-name-{{ document.id }}">No image is selected</span>
+
+                    <script>
+                        document.getElementById("image-{{ document.id }}").addEventListener("change", ()=>{
+                            let editInputImage = document.querySelector("#image-{{ document.id }}").files[0];
+                            document.getElementById("image-name-{{ document.id }}").innerText = editInputImage.name;
+                        })
+                    </script>
+
+                    <script>
+                        document.getElementById('my-activities-{{ document.id }}').addEventListener('click',function() {
+                            var myActivity = document.getElementById('edit-activity-{{ document.id }}');
+                            var displayValue = window.getComputedStyle(myActivity).display;
+                            if(displayValue === 'none'){
+                                document.getElementById('edit-activity-{{ document.id }}').style.display = 'block';
+                            }
+                            else{
+                                document.getElementById('edit-activity-{{ document.id }}').style.display = 'none';
+                            }
+                            })
+                    </script>
+    
+                </div>
+            </div>
+            <button type="submit">Submit Changes</button>
+        </form>
+
+        <form method="post" action="{% url 'maedweb:delete_activity_request' username=user.username document_id=document.id database=document.database %}">
+            {% csrf_token %}
+            <button class="delete-activity-button" type="submit">Delete Activity</button>
+        </form>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <button id="post-new-activity-button">Post a new activity</button>
+
+    <script>
+        document.getElementById('post-new-activity-button').addEventListener('click',function() {
+            var btn = document.getElementById('new-activity-container');
+            var displayValue = window.getComputedStyle(btn).display;
+            if(displayValue === 'none'){
+                document.getElementById('new-activity-container').style.display = 'block';
+            }
+            else{
+                document.getElementById('new-activity-container').style.display = 'none';
+            }
+            })
+    </script>
+
+    <form class="my-activities-container" id="new-activity-container" method="post" action="{% url 'maedweb:new_activity_request' username=user.username %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>New Activity</h1>
+        <fieldset>
+            <legend class="required-field">Select activity type:</legend>
+            <ul>
+            <li>
+                <input type="radio" id="new-activity-restaurant" name="new-activity-type" value="restaurants" onchange="getNewActivityValue(this.value)" checked="checked">
+                <label for="new-activity-restaurant">Restaurant</label>
+            </li>
+            <li>
+                <input type="radio" id="new-activity-entertainment" name="new-activity-type" value="entertainment" onchange="getNewActivityValue(this.value)">
+                <label for="new-activity-entertainment">Entertainment</label>
+            </li>
+            <li>
+                <input type="radio" id="new-activity-event" name="new-activity-type" value="events" onchange="getNewActivityValue(this.value)">
+                <label for="new-activity-event">Event</label>
+            </li>
+            </ul>
+        </fieldset>
+
+        <div class="new-activity-input-flex-container">
+            <div>
+                <label class="required-field" for="company-name">Company name</label>
+                <input id="company-name" type="text" name="company-name" required>
+            </div>
+            <div>
+                <label for="address">Address</label>
+                <input id="address" type="text" name="address">
+            </div>
+            <div>
+                <label for="phone">Phone</label>
+                <input id="phone" type="text" name="phone">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email">
+            </div>
+            <div>
+                <label for="website">Website</label>
+                <input id="website" type="url" name="website">
+            </div>
+            <div>
+                <label for="menu-link">Menu link</label>
+                <input id="menu-link" type="url" name="menu-link">
+            </div>
+            <div>
+                <label for="about-activity">About activity</label>
+                <textarea id="about-activity" type="text" name="about-activity"></textarea>
+            </div>
+            <div>
+                <label for="features">Features</label>
+                <textarea id="features" type="text" name="features"></textarea>
+            </div>
+            <fieldset>
+                <legend class="required-field">Categories (Choose up to 3)</legend>
+                <div class="activity-categories" id="new-activity-categories"></div>
+            </fieldset>
+
+            <script>
+                function getNewActivityValue(type){
+                var restaurantCategories = {{ categories.restaurant_categories|safe }}
+                var entertainmentCategories = {{ categories.entertainment_categories|safe }}
+                var eventCategories = {{ categories.event_categories|safe }}
+
+                if(type === 'restaurant'){
+                    var activityType = restaurantCategories
+                }
+                else if(type === 'entertainment'){
+                    var activityType = entertainmentCategories
+                }
+                else if(type === 'event'){
+                    var activityType = eventCategories
+                }
+        
+                document.getElementById("new-activity-categories").innerHTML = ""
+        
+                for(j = 0; j < activityType.length; j++){
+                    document.getElementById("new-activity-categories").innerHTML +=  "<div>" +
+                        "<input type='checkbox' id='category-" + activityType[j] + "' name='categories' value='" + activityType[j] + "'>" +
+                        "<label for='category-" + activityType[j] + "'>" + activityType[j] + "</label></div>"
+                }
+                }
+    
+                getNewActivityValue("restaurant")
+            </script>
+
+            <div>
+                <label for="image" class="required-field" id="image-label">Image</label>
+                <span class="input-image-wrap">
+                    Upload Image
+                    <input type="file" id="image" name="image" accept="image/png, image/jpeg" required>
+                </span>
+                <span class="image-name" id="image-name">No image is selected</span>
+
+                <script>
+                    let input = document.getElementById("image");
+                    let imageName = document.getElementById("image-name")
+            
+                    input.addEventListener("change", ()=>{
+                        let inputImage = document.querySelector("#image").files[0];
+            
+                        imageName.innerText = inputImage.name;
+                    })
+                </script>
+
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

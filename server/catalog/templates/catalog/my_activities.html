@@ -1,111 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MAED</title>
-    {% load static %}
-    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
-</head>
-<body id="main-body">
-    <header>
-        <div id="expanded-nav">
-            <nav class="main-nav-container">
-                <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
-                <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
-                <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
-                <a href = "/catalog/events" class="main-nav">Events</a>
-                {% if user.is_authenticated %}
-                    <div id="main-profile-container">
-                        <div id="main-username">{{ user.username }}</div>
-                        <div id="main-profile-button-container">
-                            <button class="main-profile-button" id="expanded-nav-button"></button>
-                            <div class="main-profile-selection-list" id="expanded-nav-user-menu">
-                                <a href="">Profile</a>
-                                {% if user.groups.first.name == "Organizer" %}
-                                <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
-                                {% endif %}
-                                <a href="">Help</a>
-                                <a href="{% url 'maedweb:logout' %}">Sign Out</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% else %}
-                    <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
-                    {% endif %}
-            </nav>
+{% extends 'base.html' %}
+{% load static %}
 
-            <hr>
-        </div>
+{% block navigation %}
 
+<div id="expanded-nav">
+    {% include "./components/nav.html" %}
+</div>
 
-<!-- Collapsed nav -->
+<div id="collapsed-nav">
+    <nav>
+        {% include "./components/mobile-nav.html" %}
+    </nav>
+</div>
 
-        <div id="collapsed-nav">
-            <nav>
-                <div class="main-nav-container">
-                    <button id="collapsed-nav-button"><img src="{% static 'catalog/Figures/menu.png' %}"></button>
+{% endblock %}
 
-                    <!-- Javascrpit for collapsed nav -->
-
-                    <script>
-                        document.getElementById('collapsed-nav-button').addEventListener('click',function() {
-                            var navMenu = document.getElementById('collapsed-nav-expanded');
-                            var navMenuDisplay = window.getComputedStyle(navMenu).display;
-                            if(navMenuDisplay === 'none'){
-                                navMenu.style.display = 'block';
-                            }
-                            else{
-                                navMenu.style.display = 'none';
-                            }
-                            })
-                    </script>
-
-                    {% if user.is_authenticated %}
-                    <div id="main-profile-container">
-                        <div id="main-profile-button-container">
-                            <button class="main-profile-button" id="collapsed-nav-profile-button"></button>
-                            <div class="main-profile-selection-list" id="collapsed-nav-user-menu">
-                                <a href="">Profile</a>
-                                {% if user.groups.first.name == "Organizer" %}
-                                <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
-                                {% endif %}
-                                <a href="">Help</a>
-                                <a href="{% url 'maedweb:logout' %}">Sign Out</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Javascrpit for user menu -->
-
-                    <script>
-                        document.getElementById('collapsed-nav-profile-button').addEventListener('click',function() {
-                            var userMenu = document.getElementById('collapsed-nav-user-menu');
-                            var userMenuDisplay = window.getComputedStyle(userMenu).display;
-                            if(userMenuDisplay === 'none'){
-                                userMenu.style.display = 'block';
-                            }
-                            else{
-                                userMenu.style.display = 'none';
-                            }
-                            })
-                    </script>
-                    {% else %}
-                    <a href = "/catalog/login"><img id="main-login" src="{% static 'catalog/Figures/login-black.png' %}"></a>
-                    {% endif %}
-
-                </div>
-                <div id="collapsed-nav-expanded">
-                    <div class="collapsed-nav-a-flexbox">
-                        <a href = "/catalog/restaurants">Restaurants</a>
-                        <a href = "/catalog/entertainment">Entertainment</a>
-                        <a href = "/catalog/events">Events</a>
-                    </div>
-                </div>
-            </nav>
-            <hr>
-        </div>
-    </header>
+{% block content%}
 
     <div class="my-activities-container">
         <h1>My Activities</h1>
@@ -240,6 +150,8 @@
         {% endfor %}
     </div>
 
+    <!-- Post a new activity -->
+
     <button id="post-new-activity-button">Post a new activity</button>
 
     <script>
@@ -262,7 +174,7 @@
             <legend class="required-field">Select activity type:</legend>
             <ul>
             <li>
-                <input type="radio" id="new-activity-restaurant" name="new-activity-type" value="restaurant" onchange="getNewActivityValue(this.value)" checked="checked">
+                <input type="radio" id="new-activity-restaurant" name="new-activity-type" value="restaurants" onchange="getNewActivityValue(this.value)" checked="checked">
                 <label for="new-activity-restaurant">Restaurant</label>
             </li>
             <li>
@@ -270,7 +182,7 @@
                 <label for="new-activity-entertainment">Entertainment</label>
             </li>
             <li>
-                <input type="radio" id="new-activity-event" name="new-activity-type" value="event" onchange="getNewActivityValue(this.value)">
+                <input type="radio" id="new-activity-event" name="new-activity-type" value="events" onchange="getNewActivityValue(this.value)">
                 <label for="new-activity-event">Event</label>
             </li>
             </ul>
@@ -365,6 +277,4 @@
         </div>
         <button type="submit">Submit</button>
     </form>
-
-</body>
-</html>
+    {% endblock %}

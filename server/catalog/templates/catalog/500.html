@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+
+<div id="expanded-nav">
+    {% include "./components/nav.html" %}
+</div>
+
+<div id="collapsed-nav">
+    <nav>
+        {% include "./components/mobile-nav.html" %}
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block content%}
+
+<h1>Error 500 xd</h1>
+
+{% endblock %}

@@ -1,8 +1,10 @@
 from django.db import models
+import json
 
-class Restaurant:
+class Activity:
 
-    def __init__(self, name, user, categories, reviews, contacts, details, menu_link, image_url):
+    def __init__(self, type, name, user, categories, reviews, contacts, details, menu_link, image_url):
+        self.type = type
         self.name = name
         self.user = user
         self.categories = categories
@@ -13,7 +15,7 @@ class Restaurant:
         self.image_url = image_url
 
     def __str__(self):
-        return "Restaurant name: " + self.name
+        return "Activity name: " + self.name
 
 
 class Categories:

@@ -24,11 +24,9 @@
             <div id="index-profile-button-container">
                 <button id="index-profile-button"></button>
                 <div id="index-profile-selection-list">
-                    <a href="">Profile</a>
                     {% if user.groups.first.name == "Organizer" %}
                     <a href="{% url 'maedweb:my_activities' username=user.username %}">My Activities</a>
                     {% endif %}
-                    <a href="">Help</a>
                     <a href="{% url 'maedweb:logout' %}">Sign Out</a>
                 </div>
             </div>

@@ -1,62 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MAED</title>
-    {% load static %}
-    <link rel="icon" type="image/png" href="{% static 'catalog/Logos/favicon_golden.png' %}"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
-</head>
-<body id="login-body">
-    <header>
-        <div id="expanded-nav">
-            <nav class="main-nav-container">
-                <a href="/catalog"><img id="main-header-logo" src="{% static 'catalog/Logos/logo_golden.png' %}"></a>
-                <a href = "/catalog/restaurants" class="main-nav">Restaurants</a>
-                <a href = "/catalog/entertainment" class="main-nav">Entertainment</a>
-                <a href = "/catalog/events" class="main-nav">Events</a>
-            </nav>
+{% extends 'login_base.html' %}
 
-            <hr>
-        </div>
+    {% block navigation %}
+    <div id="expanded-nav">
+        {% include "./components/nav.html"%}
+    </div>
 
+    <div id="collapsed-nav">
+        <nav>
+            {% include "./components/mobile-nav.html"%}
+        </nav>
+    </div>
+    {% endblock %}
 
-<!-- Collapsed nav -->
-
-        <div id="collapsed-nav">
-            <nav>
-                <div class="main-nav-container">
-                    <button id="collapsed-nav-button"><img src="{% static 'catalog/Figures/menu.png' %}"></button>
-
-                    <!-- Javascrpit for collapsed nav -->
-
-                    <script>
-                        document.getElementById('collapsed-nav-button').addEventListener('click',function() {
-                            var navMenu = document.getElementById('collapsed-nav-expanded');
-                            var navMenuDisplay = window.getComputedStyle(navMenu).display;
-                            if(navMenuDisplay === 'none'){
-                                navMenu.style.display = 'block';
-                            }
-                            else{
-                                navMenu.style.display = 'none';
-                            }
-                            })
-                    </script>
-
-                </div>
-                <div id="collapsed-nav-expanded">
-                    <div class="collapsed-nav-a-flexbox">
-                        <a href = "/catalog/restaurants">Restaurants</a>
-                        <a href = "/catalog/entertainment">Entertainment</a>
-                        <a href = "/catalog/events">Events</a>
-                    </div>
-                </div>
-            </nav>
-            <hr>
-        </div>
-    </header>
-
+    {% block content %}
     <div class="login-container">
         <form action="{% url 'maedweb:registration' %}" method="post">
             {% csrf_token %}
@@ -95,7 +51,4 @@
         </form>
         <span id="already-have-an-account">Already have an account? <a href="/catalog/login">Login</a></span>
     </div>
-
-
-</body>
-</html>
+    {% endblock %}

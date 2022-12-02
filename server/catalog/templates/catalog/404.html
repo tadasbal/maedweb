@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+
+<div id="expanded-nav">
+    {% include "./components/nav.html" %}
+</div>
+
+<div id="collapsed-nav">
+    <nav>
+        {% include "./components/mobile-nav.html" %}
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block content%}
+
+<div class="error">
+    <h1>Error 404</h1>
+    <br>
+    <h2>Page not found</h2>
+</div>
+
+{% endblock %}

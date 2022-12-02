@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+
+<div id="expanded-nav">
+    {% include "./components/nav.html" %}
+</div>
+
+<div id="collapsed-nav">
+    <nav>
+        {% include "./components/mobile-nav.html" %}
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block content%}
+
+<hr>
+<!-- Gallery -->
+
+<div id="filtered-gallery-container">
+
+    {% for document in req_documents %}
+    <div class="filtered-gallery-slide">
+        <a href="{% url 'maedweb:about_activity' activities=activities document_id=document.id %}">
+            <img src="{{ document.image_url }}">
+            <p>{{ document.name }}</p>
+        </a>
+    </div>
+    {% endfor %}   
+        
+</div>
+
+{% endblock %}

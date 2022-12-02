@@ -1,0 +1,27 @@
+{% load static %}
+
+<div #swiperRef="" class="swiper-container mySwiper">
+    <button class="button-for-images-left">
+        <img src="{% static 'catalog/Figures/arrow-left.png' %}" class="arrow-left">
+    </button>
+    <button class="button-for-images-right">
+        <img src="{% static 'catalog/Figures/arrow-right.png' %}" class="arrow-right">
+    </button>
+    <div class="gallery-category">
+        <p>{{category}}:</p>
+    </div>
+    <div class="swiper-wrapper">
+        {% for document in my_documents %}
+        {% if category in document.categories %}
+        <div class="swiper-slide">
+            <a href="{% url 'maedweb:about_activity' activities=activities document_id=document.id %}">
+                <img src="{{ document.image_url }}">
+                <p>{{ document.name }}</p>
+            </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        
+    </div>
+    
+</div>

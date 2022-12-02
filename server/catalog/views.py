@@ -1,40 +1,31 @@
-from multiprocessing import context
+"""Django views"""
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User, Group
-from django.http import HttpResponse
-from django.urls import reverse
-from .apis import retrieve_img, retrieve_all_documents, retrieve_one_document, upload_image_s3, add_restaurant, category_filter, search, user_activities, update_document, delete_image_s3, delete_document
-from .models import Restaurant, Categories
-import requests
-from requests.auth import HTTPBasicAuth
+from catalog.modules.databases.cloudant import *
+from catalog.modules.databases.aws import *
+from .models import Activity, Categories
 import logging
 from django.template.defaulttags import register
 
 @register.filter
 def get_range(value):
+    """Get range. Used in about_activity.html to render a specific number of stars for ratings"""
     return range(value)
 
 logger = logging.getLogger(__name__)
 
-# Create your views here.
-# def show_image(request, document_id, image_name):
-#     image = retrieve_img(document_id, image_name)
-
-#     return HttpResponse(image, content_type="image/jpg")
-
-def show_image(request, document_id, image_name):
-    image = retrieve_img(document_id, image_name)
-    return HttpResponse(image, content_type="image/jpg")
-
-
 def index(request):
+    """Render index page"""
     return render(request, 'catalog/index.html')
 
 def login_page(request):
+    """Render login page"""
     return render(request, 'catalog/login.html')
 
 def login_request(request):
+    """Login request if user tries to login"""
     context = {}
     if request.method == "POST":
         username = request.POST['login-username']
@@ -48,13 +39,16 @@ def login_request(request):
             return render(request, 'catalog/login.html', context)
 
 def logout_request(request):
+    """Logout request if user tries to logout"""
     logout(request)
     return redirect('maedweb:index')
 
 def register_page(request):
+    """Render register page"""
     return render(request, 'catalog/register.html')
 
 def registration_request(request):
+    """Register request if user tries to register"""
     context = {}
     if request.method == 'POST':
         # Check if user exists
@@ -83,6 +77,7 @@ def registration_request(request):
             return render(request, 'catalog/register.html', context)
 
 def restaurants(request):
+    """Retrieve all restaurants from cloudant and render restaurants page """
     context = {}
     my_documents = retrieve_all_documents('maed-restaurants')
     categories = Categories()
@@ -91,10 +86,13 @@ def restaurants(request):
         document['id'] = document.pop('_id')
 
     context['my_documents'] = my_documents
-    context['restaurant_categories'] = categories.restaurant_categories
-    return render(request, 'catalog/restaurants.html', context)
+    context['categories'] = categories.restaurant_categories
+    context['displayed_categories'] = ["Most Popular", "Fast Food", "Italian", "Pasta"]
+    context['activities'] = "restaurants"
+    return render(request, 'catalog/activities.html', context)
 
 def entertainment(request):
+    """Retrieve all entertainment from cloudant and render entertainment page """
     context = {}
     my_documents = retrieve_all_documents('maed-entertainment')
     categories = Categories()
@@ -103,10 +101,14 @@ def entertainment(request):
         document['id'] = document.pop('_id')
 
     context['my_documents'] = my_documents
-    context['entertainment_categories'] = categories.entertainment_categories
-    return render(request, 'catalog/entertainment.html', context)
+    context['categories'] = categories.entertainment_categories
+    context['displayed_categories'] = ["Most Popular", "Active", "Outdoors", "Indoors"]
+    context['activities'] = "entertainment"
+
+    return render(request, 'catalog/activities.html', context)
 
 def events(request):
+    """Retrieve all events from cloudant and render events page """
     context = {}
     my_documents = retrieve_all_documents('maed-events')
     categories = Categories()
@@ -115,10 +117,14 @@ def events(request):
         document['id'] = document.pop('_id')
 
     context['my_documents'] = my_documents
-    context['event_categories'] = categories.event_categories
-    return render(request, 'catalog/events.html', context)
+    context['categories'] = categories.event_categories
+    context['displayed_categories'] = ["Most Popular", "Concert", "Indoors", "Active"]
+    context['activities'] = "events"
+
+    return render(request, 'catalog/activities.html', context)
 
 def about_activity(request, activities, document_id):
+    """Retrieve a specific document from cloudant and render about activity page"""
     context = {}
     if activities == 'restaurants':
         req_document = retrieve_one_document(document_id, 'maed-restaurants')
@@ -129,9 +135,10 @@ def about_activity(request, activities, document_id):
     context['document'] = req_document
     context['document_id'] = document_id
     context['activities'] = activities
-    return render(request, 'catalog/about_restaurant.html', context)
+    return render(request, 'catalog/about_activity.html', context)
 
 def search_request(request, activities):
+    """Search request if user tries to search for specific activities"""
     if request.method == 'POST':
         searchtxt = request.POST['search']
         req_documents = search(searchtxt, activities)
@@ -139,6 +146,7 @@ def search_request(request, activities):
         return redirect('maedweb:activities_filtered', activities=activities)
 
 def filter_request(request, activities):
+    """Filter request if user tries to filter activity categories"""
     if request.method == 'POST':
         selected_categories = request.POST.getlist('filter_checkbox')
         req_documents = category_filter(selected_categories, activities)
@@ -146,15 +154,17 @@ def filter_request(request, activities):
         return redirect('maedweb:activities_filtered', activities=activities)
 
 def activities_filtered(request, activities):
+    """Render activities after they have been filtered after filter or search request"""
     context = {}
     categories = Categories()
     req_documents = request.session['req_documents']
     context['req_documents'] = req_documents
     context['categories'] = categories
     context['activities'] = activities
-    return render(request, 'catalog/restaurants_filtered.html', context) 
+    return render(request, 'catalog/activities_filtered.html', context) 
 
 def my_activities(request, username):
+    """Render all of user activities"""
     context = {}
     categories = Categories
     restaurant_documents = user_activities(username, 'maed-restaurants')
@@ -166,55 +176,66 @@ def my_activities(request, username):
     return render(request, 'catalog/my_activities.html', context)
 
 def new_activity_request(request, username):
+    """User request to create new activity"""
     if request.method == 'POST':
         form = request.POST
 
         image = request.FILES['image']
         image_url = upload_image_s3(image, form['company-name'])
 
-        restaurant = Restaurant
-        restaurant.user = username 
-        restaurant.name = form['company-name']
-        restaurant.categories = request.POST.getlist('categories')
-        restaurant.reviews = {"Overall":0, "Food":0, "Price":0, "Service":0, "Place":0}
-        restaurant.contacts = {"address":form['address'], "phone":form['phone'], "email":form['email'], "website":form['website']}
-        restaurant.details = {"about":form['about-activity'], "features":form['features']}
-        restaurant.menu_link = form['menu-link']
-        restaurant.image_url = image_url
-        add_restaurant(restaurant, form['new-activity-type'])
+        activity = Activity(
+            user = username,
+            type = form['new-activity-type'],
+            name = form['company-name'],
+            categories = request.POST.getlist('categories'),
+            reviews = {"Overall":0, "Food":0, "Price":0, "Service":0, "Place":0},
+            contacts = {"address":form['address'], "phone":form['phone'], "email":form['email'], "website":form['website']},
+            details = {"about":form['about-activity'], "features":form['features']},
+            menu_link = form['menu-link'],
+            image_url = image_url)
+
+        add_activity(activity)
 
         return redirect('maedweb:my_activities', username=username)
 
 def edit_activity_request(request, username, document_id, database):
+    """User request to edit activity"""
     if request.method == 'POST':
         document = retrieve_one_document(document_id, database)
         form = request.POST
 
-        restaurant = Restaurant
-        restaurant.name = form['company-name']
-        restaurant.categories = request.POST.getlist('categories')
-        restaurant.contacts = {"address":form['address'], "phone":form['phone'], "email":form['email'], "website":form['website']}
-        restaurant.details = {"about":form['about-activity'], "features":form['features']}
-        restaurant.menu_link = form['menu-link']
+        activity = Activity
+        activity.name = form['company-name']
+        activity.categories = request.POST.getlist('categories')
+        activity.contacts = {"address":form['address'], "phone":form['phone'], "email":form['email'], "website":form['website']}
+        activity.details = {"about":form['about-activity'], "features":form['features']}
+        activity.menu_link = form['menu-link']
 
         try:
             image = request.FILES['image']
             delete_image_s3(document['image_url'])
-            image_url = upload_image_s3(image, restaurant.name)
-            restaurant.image_url = image_url
+            image_url = upload_image_s3(image, activity.name)
+            activity.image_url = image_url
         except:
             print('No new image attached')
-            restaurant.image_url = ''
+            activity.image_url = ''
 
-        update_document(restaurant, document, database)
+        update_document(activity, document, database)
 
         return redirect('maedweb:my_activities', username=username)
 
 def delete_activity_request(request, username, document_id, database):
+    """User request to delete activity"""
     if request.method == 'POST':
         document = retrieve_one_document(document_id, database)
         delete_image_s3(document['image_url'])
         delete_document(document_id, database)
         return redirect('maedweb:my_activities', username=username)
 
+# def error_404(request, exception):
+#         data = {}
+#         return render(request,'catalog/404.html', data)
 
+# def error_500(request):
+#         data = {}
+#         return render(request,'catalog/500.html', data)
