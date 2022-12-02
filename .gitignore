@@ -1,4 +1,2 @@
 *.env
-Scripts
-Lib
-pyvenv.cfg
+venv
