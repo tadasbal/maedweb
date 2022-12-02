@@ -1,3 +1,4 @@
 *.env
 Scripts
 Lib
+pyenv.cfg
