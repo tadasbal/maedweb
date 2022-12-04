@@ -386,8 +386,6 @@ hr{
 .search-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: rgba(0, 0, 0, 0.4);
     font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
   }
   
@@ -461,7 +459,6 @@ hr{
 
 .gallery-category p{
     font-family: 'Inter';
-    font-style: normal;
     font-weight: 550;
     font-size: 20px;
     margin-left: 2.5vw;
@@ -1329,93 +1326,11 @@ hr{
     background-color: #FF0000 !important;
 }
 
-
-
-/* .login-choose-type, .register-choose-type{
-    list-style-type: none;
+/* CSS for error */
+.error{
+    color: #FF0000;
+    margin: 20px auto 0;
 }
-
-.login-choose-type li{
-    float:left;
-    width:175px;
-    height:175px;
-    margin-left: 25px;
-    margin-top: 25px;
-    margin-bottom: 46px;
-}
-
-.register-choose-type li{
-    float:left;
-    width:133px;
-    height:133px;
-    margin-left: 58px;
-    margin-top: 30px;
-    margin-bottom: 25px;
-}
-
-.login-choose-type label{
-    background-color: #FFFFFF;
-    background-position: center 15px;
-    background-repeat: no-repeat;
-
-    padding:5px;
-    cursor:pointer;
-    z-index:2;
-    position:absolute;
-    width: 175px;
-    height: 175px;
-
-    text-align: center;
-}
-
-.register-choose-type label{
-    background-color: #FFFFFF;
-    background-position: center 21.5px;
-    background-repeat: no-repeat;
-    background-size: auto 70px;
-
-    cursor:pointer;
-    z-index:2;
-    position:absolute;
-    width: 133px;
-    height: 133px;
-
-    text-align: center;
-}
-
-#login-as-user-label, #register-as-user-label{
-    background-image: url("Figures/User-type.png");
-}
-
-#login-as-organizer-label, #register-as-organizer-label{
-    background-image: url("Figures/organizer-type.png");
-}
-
-.login-choose-type label span{
-    font-family: 'Average';
-    font-size: 24px;
-    position: relative;
-    top: 138px;
-}
-
-.register-choose-type label span{
-    font-family: 'Average';
-    font-size: 16px;
-    position: relative;
-    top: 105.75px;
-}
-
-.login-choose-type input, .register-choose-type input{
-    display: block;
-    position:absolute;
-    z-index:3;
-    visibility: hidden;
-}
-
-.login-choose-type label:hover, .login-choose-type input[type="radio"]:checked + label{
-    border:2px solid rgb(17, 0, 255); 
-}*/
-
 
 
 

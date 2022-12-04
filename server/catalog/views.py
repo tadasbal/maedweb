@@ -232,10 +232,10 @@ def delete_activity_request(request, username, document_id, database):
         delete_document(document_id, database)
         return redirect('maedweb:my_activities', username=username)
 
-# def error_404(request, exception):
-#         data = {}
-#         return render(request,'catalog/404.html', data)
+def error_404(request, exception):
+        data = {}
+        return render(request,'catalog/404.html', data)
 
-# def error_500(request):
-#         data = {}
-#         return render(request,'catalog/500.html', data)
+def error_500(request):
+        data = {}
+        return render(request,'catalog/500.html', data)
